@@ -11,6 +11,8 @@
 
 int fd;
 int rts_delay_before_send = 0, rts_delay_after_send = 0;
+char buf[512];
+int res;
 
 int main() {
 
@@ -49,9 +51,16 @@ int main() {
 	rs485conf.flags |= SER_RS485_RX_DURING_TX;
 
 	if (ioctl (fd, TIOCSRS485, &rs485conf) < 0) {
+		perror("Unable to close port");
 	}
 
 	// Use read() and write() syscalls here...
+	memset(buf,0x00,sizeof(buf));
+    res = read(fd,buf,512);
+    printf("Read %d bytes:\n", res);
+    for (int i=0; i<res; i++)
+        printf("%02x ", buf[i]);
+    printf("\n");
 
 	// Close the device when finished
 	if (close (fd) < 0) {
