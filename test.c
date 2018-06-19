@@ -22,7 +22,7 @@ int main()
     O_NOCTTY - не делать устройство управлящим терминалом
     O_NDELAY - не использовать DCD линию
     */
-    fd = open("/dev/ttyS1", O_RDWR | O_NONBLOCK | O_NOCTTY | O_NDELAY);
+    fd = open("/dev/ttyUSB0", O_RDWR | O_NONBLOCK | O_NOCTTY | O_NDELAY);
     if (fd == -1) {
         perror("Unable to open port");
     }
