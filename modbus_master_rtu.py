@@ -1,5 +1,4 @@
 #!/usr/bin/env python2.7
-# -*- coding: utf_8 -*-
 
 import serial
   
