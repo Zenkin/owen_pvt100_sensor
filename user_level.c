@@ -14,7 +14,7 @@ int rts_delay_before_send = 0, rts_delay_after_send = 0;
 
 int main() {
 
-	printf ("starting RS485_serial_communications");
+	printf ("starting RS485_serial_communications... \n");
 
 	/* Open your specific device (e.g., /dev/mydevice): */
 	fd = open ("/dev/ttyUSB0", O_RDWR);
@@ -22,7 +22,7 @@ int main() {
 		perror("Unable to open port");
 	}
 
-	printf ("the device was opened successfully");
+	printf ("the device was opened successfully \n");
 
 	struct serial_rs485 rs485conf;
 
@@ -33,7 +33,7 @@ int main() {
 	rs485conf.flags |= SER_RS485_RTS_ON_SEND;
 	// or, set logical level for RTS pin equal to 0 when sending
 	rs485conf.flags &= ~(SER_RS485_RTS_ON_SEND);
-	
+
 	//Set logical level for RTS pin equal to 1 after sending
 	rs485conf.flags |= SER_RS485_RTS_AFTER_SEND;
 	// or, set logical level for RTS pin equal to 0 after sending
@@ -58,7 +58,7 @@ int main() {
 		perror("Unable to close port");
 	}
 
-	printf ("the device was closed successfully");
+	printf ("the device was closed successfully \n");
 
 	return 0;
 }
