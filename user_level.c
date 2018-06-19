@@ -14,7 +14,7 @@ int rts_delay_before_send = 0, rts_delay_after_send = 0;
 
 int main() {
 	/* Open your specific device (e.g., /dev/mydevice): */
-	fd = open ("/dev/mydevice", O_RDWR);
+	fd = open ("/dev/ttyUSB0", O_RDWR);
 	if (fd < 0) {
 		perror("Unable to open port");
 	}
@@ -46,7 +46,7 @@ int main() {
 	if (ioctl (fd, TIOCSRS485, &rs485conf) < 0) {
 	}
 
-	// mUse read() and write() syscalls here...
+	// Use read() and write() syscalls here...
 
 	// Close the device when finished
 	if (close (fd) < 0) {
