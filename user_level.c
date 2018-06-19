@@ -9,9 +9,12 @@
 // Include definition for RS485 ioctls: TIOCGRS485 and TIOCSRS485
 #include <sys/ioctl.h>
 
+int fd;
+int rts_delay_before_send = 0, rts_delay_after_send = 0;
+
 int main() {
 	/* Open your specific device (e.g., /dev/mydevice): */
-	int fd = open ("/dev/mydevice", O_RDWR);
+	fd = open ("/dev/mydevice", O_RDWR);
 	if (fd < 0) {
 	}
 
@@ -30,7 +33,14 @@ int main() {
 	// or, set logical level for RTS pin equal to 0 after sending
 	rs485conf.flags &= ~(SER_RS485_RTS_AFTER_SEND);
 
-	/* Set this flag if you want to receive data even whilst sending data */
+
+	// Set rts delay before send
+	rs485conf.delay_rts_before_send = rts_delay_before_send;
+
+	// Set rts delay after send
+	rs485conf.delay_rts_after_send = rts_delay_after_send;
+
+	//bSet this flag if you want to receive data even whilst sending data
 	rs485conf.flags |= SER_RS485_RX_DURING_TX;
 
 	if (ioctl (fd, TIOCSRS485, &rs485conf) < 0) {
