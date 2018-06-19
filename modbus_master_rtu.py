@@ -7,7 +7,7 @@ import modbus_tk
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 
-PORT = '/dev/tty5'
+PORT = '/dev/ttyUSB0'
 
 def main():
     logger = modbus_tk.utils.create_logger("console")
