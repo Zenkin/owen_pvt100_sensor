@@ -55,15 +55,15 @@ int main() {
 	}
 
 	// Use read() and write() syscalls here...
-	memset(buf,0x00,sizeof(buf));
+	/*memset(buf,0x00,sizeof(buf));
     res = read(fd,buf,512);
     printf("Read %d bytes:\n", res);
     for (int i=0; i<res; i++)
         printf("%02x ", buf[i]);
-    printf("\n");
+    printf("\n");*/
 
 	// Close the device when finished
-	if (close (fd) < 0) {
+	if (close(fd) < 0) {
 		perror("Unable to close port");
 	}
 
