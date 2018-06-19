@@ -15,13 +15,13 @@ def main():
     try:
         #Connect to the slave
         master = modbus_rtu.RtuMaster(
-            serial.Serial(port=PORT, baudrate=9600, bytesize=8, parity='N', stopbits=1, xonxoff=0)
+            serial.Serial(port=PORT, baudrate=9600, bytesize=8, parity='N', stopbits=1, xonxoff=16)
         )
         master.set_timeout(5.0)
         master.set_verbose(True)
         logger.info("connected")
 
-        logger.info(master.execute(1, cst.READ_HOLDING_REGISTERS, 0, 3))
+        logger.info(master.execute(1, cst.READ_HOLDING_REGISTERS, 16, 3))
 
         #send some queries
         #logger.info(master.execute(1, cst.READ_COILS, 0, 10))
