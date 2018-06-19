@@ -16,6 +16,7 @@ int main() {
 	/* Open your specific device (e.g., /dev/mydevice): */
 	fd = open ("/dev/mydevice", O_RDWR);
 	if (fd < 0) {
+		perror("Unable to open port");
 	}
 
 	struct serial_rs485 rs485conf;
@@ -33,7 +34,6 @@ int main() {
 	// or, set logical level for RTS pin equal to 0 after sending
 	rs485conf.flags &= ~(SER_RS485_RTS_AFTER_SEND);
 
-
 	// Set rts delay before send
 	rs485conf.delay_rts_before_send = rts_delay_before_send;
 
@@ -46,10 +46,11 @@ int main() {
 	if (ioctl (fd, TIOCSRS485, &rs485conf) < 0) {
 	}
 
-	/* Use read() and write() syscalls here... */
+	// mUse read() and write() syscalls here...
 
 	// Close the device when finished
 	if (close (fd) < 0) {
+		perror("Unable to close port");
 	}
 	return 0;
 }
