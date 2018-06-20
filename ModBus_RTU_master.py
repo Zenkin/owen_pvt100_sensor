@@ -19,7 +19,6 @@ def main():
     print("starting...")
 
     minimalmodbus.BAUDRATE = baudrate
-    instrument.debug = True
 
     print("INFORMATION")
     print("Serial port: " + str(port))
@@ -32,6 +31,7 @@ def main():
 
     for i in range(4):
     	instrument = minimalmodbus.Instrument(port, i+1)
+    	instrument.debug = True
     	for j in [258, 259, 260]:
             temperature = instrument.read_register(j, 4, 3, True) # Registernumber, number of decimals
             print(temperature)
