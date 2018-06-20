@@ -30,7 +30,8 @@ def main():
     try:
         instrument = minimalmodbus.Instrument(port, slave_adress)
     except IOError:
-        print("ошибка")
+        instrument = "Error"
     #print(instrument.read_register(1, 4, 3, True))
-
+    print(instrument)
+    
 main()
