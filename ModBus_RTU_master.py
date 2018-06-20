@@ -28,7 +28,7 @@ def main():
     #        print("slave_adress: " + str(i+1) + " adress: " + str(j))
     #        print(instrument.read_register(j, 4, 3, True)) # Registernumber, number of decimals
     try:
-        instrument = minimalmodbus.Instrument(port, i+1)
+        instrument = minimalmodbus.Instrument(port, slave_adress)
     except IOError:
     	print("ошибка")
     #print(instrument.read_register(1, 4, 3, True))
