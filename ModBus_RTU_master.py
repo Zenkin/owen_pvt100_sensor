@@ -25,7 +25,6 @@ def main():
         instrument.debug = True
         for j in [258, 259, 260]:
             print("slave_adress: " + str(i+1) + " adress: " + str(j))
-            temperature = instrument.read_register(j, 4, 3, True) # Registernumber, number of decimals
-            print(temperature)
+            print(instrument.read_register(j, 4, 3, True)) # Registernumber, number of decimals
 
 main()
