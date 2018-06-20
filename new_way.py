@@ -93,7 +93,7 @@ def UA_112(com, id, command, channel, amount):
             return None
    
 def main():
-    com = serial.Serial(port='/dev/ttyUSB0', baudrate=19200, timeout=3.0,
+    com = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=3.0,
         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
         bytesize=serial.EIGHTBITS)
     for i in xrange(100):
