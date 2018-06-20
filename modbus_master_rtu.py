@@ -1,5 +1,4 @@
-#!/usr/bin/env python2.7
-# -*- coding: utf_8 -*-
+#!/usr/bin/env python
 
 import serial
 
@@ -10,6 +9,7 @@ from modbus_tk import modbus_rtu
 PORT = '/dev/ttyUSB0'
 
 def main():
+    """main"""
     logger = modbus_tk.utils.create_logger("console")
 
     try:
@@ -21,10 +21,9 @@ def main():
         master.set_verbose(True)
         logger.info("connected")
 
-        
+        logger.info(master.execute(1, cst.READ_HOLDING_REGISTERS, 0, 3))
 
         #send some queries
-	    logger.info(master.execute(16, cst.READ_HOLDING_REGISTERS, 0, 3))
         #logger.info(master.execute(1, cst.READ_COILS, 0, 10))
         #logger.info(master.execute(1, cst.READ_DISCRETE_INPUTS, 0, 8))
         #logger.info(master.execute(1, cst.READ_INPUT_REGISTERS, 100, 3))
@@ -38,4 +37,4 @@ def main():
         logger.error("%s- Code=%d", exc, exc.get_exception_code())
 
 if __name__ == "__main__":
-    main()
+main()
