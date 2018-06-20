@@ -19,7 +19,6 @@ def main():
     print("starting...")
 
     minimalmodbus.BAUDRATE = baudrate
-    instrument = minimalmodbus.Instrument(port, slave_adress)
     instrument.debug = True
 
     print("INFORMATION")
@@ -31,7 +30,10 @@ def main():
     print("Parity: " + str(instrument.serial.parity))
     print("Timeout: " + str(instrument.serial.timeout))
 
-    temperature = instrument.read_register(register_number, 4, 3, True) # Registernumber, number of decimals
-    print(temperature)
+    for i in range(4):
+    	instrument = minimalmodbus.Instrument(port, i+1)
+    	for j in [258, 259, 260]:
+            temperature = instrument.read_register(j, 4, 3, True) # Registernumber, number of decimals
+            print(temperature)
 
 main()
