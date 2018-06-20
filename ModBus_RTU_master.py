@@ -22,8 +22,8 @@ def main():
     minimalmodbus.TIMEOUT = timeout
 
     for baudrate_test in [57600, 38400, 19200, 9600, 4800, 2400, 1200]:
-    	minimalmodbus.BAUDRATE = baudrate_test
-    	print(baudrate_test)
+        minimalmodbus.BAUDRATE = baudrate_test
+        print(baudrate_test)
         for slave_adress_test in range(247):
             instrument = minimalmodbus.Instrument(port, slave_adress_test+1)
             for register_number_test in [1, 2, 3]:
