@@ -30,7 +30,7 @@ def main():
     print("Parity: " + str(instrument.serial.parity))
     print("Timeout: " + str(instrument.serial.timeout))
 
-    instrument.write_register(register_number, 70, 2)
+    instrument.write_register(register_number, 70, 2, 6)
     temperature = instrument.read_register(register_number, 0, 3, True) # Registernumber, number of decimals
     print(temperature)
 
