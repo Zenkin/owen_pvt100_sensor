@@ -4,7 +4,7 @@ import minimalmodbus
 import serial
 
 port = '/dev/ttyUSB0' # serial port
-slave_adress = 16 # 10cc
+slave_adress = 1 # 10cc
 ## Number of the first register 0x0102 16cc or 258 10cc ##
 hex_number = 102
 dec_number = 258
@@ -20,6 +20,7 @@ def main():
 
     minimalmodbus.BAUDRATE = baudrate
     instrument = minimalmodbus.Instrument(port, slave_adress)
+    instrument.debug = True
 
     print("INFORMATION")
     print("Serial port: " + str(port))
@@ -30,8 +31,7 @@ def main():
     print("Parity: " + str(instrument.serial.parity))
     print("Timeout: " + str(instrument.serial.timeout))
 
-    instrument.write_register(register_number, 70, 2, 6)
-    temperature = instrument.read_register(register_number, 0, 3, True) # Registernumber, number of decimals
+    temperature = instrument.read_register(register_number, 4, 3, True) # Registernumber, number of decimals
     print(temperature)
 
 main()
