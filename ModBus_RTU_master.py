@@ -24,7 +24,7 @@ def main():
         instrument = minimalmodbus.Instrument(port, i+1)
         instrument.debug = True
         for j in [258, 259, 260]:
-    	    print("slave_adress: " + str(i+1) + " adress: " + str(j))
+            print("slave_adress: " + str(i+1) + " adress: " + str(j))
             temperature = instrument.read_register(j, 4, 3, True) # Registernumber, number of decimals
             print(temperature)
 
