@@ -21,11 +21,16 @@ def main():
     minimalmodbus.BAUDRATE = baudrate
     minimalmodbus.TIMEOUT = timeout
 
-    for i in range(4):
+    #for i in range(4):
+    #    instrument = minimalmodbus.Instrument(port, i+1)
+    #    instrument.debug = True
+    #    for j in [1, 2, 3]:
+    #        print("slave_adress: " + str(i+1) + " adress: " + str(j))
+    #        print(instrument.read_register(j, 4, 3, True)) # Registernumber, number of decimals
+    try:
         instrument = minimalmodbus.Instrument(port, i+1)
-        instrument.debug = True
-        for j in [1, 2, 3]:
-            print("slave_adress: " + str(i+1) + " adress: " + str(j))
-            print(instrument.read_register(j, 4, 3, True)) # Registernumber, number of decimals
+    except IOError:
+    	print("ошибка")
+    #print(instrument.read_register(1, 4, 3, True))
 
 main()
