@@ -32,7 +32,6 @@ def main():
                     print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " OK")
                     instrument.debug = True
                 except:
-                    i = 0
-            print(slave_adress_test+1)        
+                    print(str(slave_adress_test+1) +" | " + str(register_number_test) + " FAIL")        
 
 main()
