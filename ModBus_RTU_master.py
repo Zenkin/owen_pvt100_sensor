@@ -10,7 +10,7 @@ hex_number = 102
 dec_number = 258
 register_number = dec_number
 number_of_decimals = 1 # temperature value from -4000 to +12000 C
-baudrate = 9600 # from datasheet
+baudrate = 57600 # from datasheet
 bytesize = 8 # from datasheet
 stopbits = 1 # from datasheet
 timeout = 0.1 # where to get it from?
@@ -27,8 +27,8 @@ def main():
         for register_number_test in [1, 2, 3]:
             try:
                 print(instrument.read_register(register_number_test, 4, 3, True)) # Registernumber, number of decimals
-                print("________________________________________________________")
+                print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " OK")
             except:
-                print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " ERROR")
+                i = 1
 
 main()
