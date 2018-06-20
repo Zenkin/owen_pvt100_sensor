@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-# -*- coding: utf-42 -*-
+
 import os, sys
 
 import minimalmodbus
 
 port = '/dev/ttyUSB0' # serial port
-slave_adress = 16 # в десятичной сс
-## Вот тут номер первого регистра 0x0102 16сс или 258 10сс ##
+slave_adress = 16 # 10cc
+## Number of the first register 0x0102 16cc or 258 10cc ##
 hex_number = 102
 dec_number = 258
 register_number = dec_number
-number_of_decimals = 1 # Значения температуры -4000 до +12000 С
+number_of_decimals = 1 # temperature value from -4000 to +12000 C
 
 def main():
     instrument = minimalmodbus.Instrument(port, slave_adress)
