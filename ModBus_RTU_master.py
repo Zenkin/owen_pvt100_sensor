@@ -18,8 +18,9 @@ timeout = 0.05 # where to get it from?
 def main():
     print("starting...")
 
+    minimalmodbus.BAUDRATE = baudrate
     instrument = minimalmodbus.Instrument(port, slave_adress)
-    instrument.serial.BAUDRATE = baudrate 
+    #instrument.serial.BAUDRATE = baudrate 
     #instrument.serial.BYTESIZE = bytesize
     #instrument.serial.PARITY   = serial.PARITY_NONE # from datasheet
     #instrument.serial.TIMEOUT  = timeout
@@ -28,11 +29,11 @@ def main():
     print("INFORMATION")
     print("Serial port: " + str(port))
     print("Slave adress: " + str(slave_adress))
-    print("Boudrate: " + str(instrument.serial.BAUDRATE))
-    print("Bytesize: " + str(instrument.serial.BYTESIZE))
-    print("Stopbits: " + str(instrument.serial.STOPBITS))
+    print("Boudrate: " + str(instrument.serial.baudrate))
+    print("Bytesize: " + str(instrument.serial.bytesize))
+    print("Stopbits: " + str(instrument.serial.stopbits))
     print("Parity: " + str(instrument.serial.PARITY))
-    print("Timeout: " + str(instrument.serial.TIMEOUT))
+    print("Timeout: " + str(instrument.serial.timeout))
 
     temperature = instrument.read_register(register_number, 1) # Registernumber, number of decimals
     print(temperature)
