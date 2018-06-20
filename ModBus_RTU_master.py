@@ -32,7 +32,7 @@ def main():
     print("Boudrate: " + str(instrument.serial.baudrate))
     print("Bytesize: " + str(instrument.serial.bytesize))
     print("Stopbits: " + str(instrument.serial.stopbits))
-    print("Parity: " + str(instrument.serial.PARITY))
+    print("Parity: " + str(instrument.serial.parity))
     print("Timeout: " + str(instrument.serial.timeout))
 
     temperature = instrument.read_register(register_number, 1) # Registernumber, number of decimals
