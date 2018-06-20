@@ -23,11 +23,11 @@ def main():
 
     for slave_adress_test in range(247):
         instrument = minimalmodbus.Instrument(port, slave_adress_test+1)
-        instrument.debug = True
         for register_number_test in [1, 2, 3]:
             try:
                 print(instrument.read_register(register_number_test, 4, 3, True)) # Registernumber, number of decimals
                 print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " OK")
+                instrument.debug = True
             except:
                 i = 1
 
