@@ -27,7 +27,8 @@ def main():
         for register_number_test in [1, 2, 3]:
             try:
                 print(instrument.read_register(register_number_test, 4, 3, True)) # Registernumber, number of decimals
+                print("________________________________________________________")
             except:
-                print("slave adress: " + str(slave_adress_test) + " adress: " + str(register_number_test) + " ERROR")
+                print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " ERROR")
 
 main()
