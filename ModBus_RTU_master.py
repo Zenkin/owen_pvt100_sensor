@@ -33,6 +33,6 @@ def main():
     except IOError:
         temperature = "Error"
     #print(instrument.read_register(1, 4, 3, True))
-    print(instrument)
+    print(temperature)
 
 main()
