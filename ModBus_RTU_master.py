@@ -1,8 +1,7 @@
-#!/usr/bin/env python
-
-import os, sys
+#!/usr/bin/env python3
 
 import minimalmodbus
+import serial
 
 port = '/dev/ttyUSB0' # serial port
 slave_adress = 16 # 10cc
@@ -13,6 +12,9 @@ register_number = dec_number
 number_of_decimals = 1 # temperature value from -4000 to +12000 C
 
 def main():
+    print("starting...")
     instrument = minimalmodbus.Instrument(port, slave_adress)
     temperature = instrument.read_register(register_number, 1) # Registernumber, number of decimals
-	print temperature
+    print(temperature)
+
+main()
