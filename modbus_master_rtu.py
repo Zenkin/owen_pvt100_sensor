@@ -24,7 +24,7 @@ def main():
         
 
         #send some queries
-	   logger.info(master.execute(16, cst.READ_HOLDING_REGISTERS, 0, 3))
+	    logger.info(master.execute(16, cst.READ_HOLDING_REGISTERS, 0, 3))
         #logger.info(master.execute(1, cst.READ_COILS, 0, 10))
         #logger.info(master.execute(1, cst.READ_DISCRETE_INPUTS, 0, 8))
         #logger.info(master.execute(1, cst.READ_INPUT_REGISTERS, 100, 3))
