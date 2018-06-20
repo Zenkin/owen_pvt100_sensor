@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: <encoding name> -*-
+# -*- coding: utf-42 -*-
+import os, sys
 
 import minimalmodbus
 
