@@ -37,4 +37,4 @@ def main():
         logger.error("%s- Code=%d", exc, exc.get_exception_code())
 
 if __name__ == "__main__":
-main()
+    main()
