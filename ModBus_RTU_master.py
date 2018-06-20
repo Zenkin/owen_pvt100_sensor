@@ -29,9 +29,10 @@ def main():
     #        print(instrument.read_register(j, 4, 3, True)) # Registernumber, number of decimals
     try:
         instrument = minimalmodbus.Instrument(port, slave_adress)
+        temperature = instrument.read_register(1, 4, 3, True)
     except IOError:
-        instrument = "Error"
+        temperature = "Error"
     #print(instrument.read_register(1, 4, 3, True))
     print(instrument)
-    
+
 main()
