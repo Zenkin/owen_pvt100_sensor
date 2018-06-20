@@ -28,6 +28,6 @@ def main():
         	try:
                 print(instrument.read_register(register_number_test, 4, 3, True)) # Registernumber, number of decimals
             except:
-            	print("slave adress: " + str(slave_adress_test) + " adress: " + str(register_number_test) + " ERROR")
+                print("slave adress: " + str(slave_adress_test) + " adress: " + str(register_number_test) + " ERROR")
 
 main()
