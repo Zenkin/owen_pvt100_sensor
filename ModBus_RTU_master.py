@@ -20,19 +20,11 @@ def main():
 
     minimalmodbus.BAUDRATE = baudrate
 
-    print("INFORMATION")
-    print("Serial port: " + str(port))
-    print("Slave adress: " + str(slave_adress))
-    print("Boudrate: " + str(instrument.serial.baudrate))
-    print("Bytesize: " + str(instrument.serial.bytesize))
-    print("Stopbits: " + str(instrument.serial.stopbits))
-    print("Parity: " + str(instrument.serial.parity))
-    print("Timeout: " + str(instrument.serial.timeout))
-
     for i in range(4):
     	instrument = minimalmodbus.Instrument(port, i+1)
     	instrument.debug = True
     	for j in [258, 259, 260]:
+    		print("slave_adress: " + str(i+1) + " adress: " + str(j))
             temperature = instrument.read_register(j, 4, 3, True) # Registernumber, number of decimals
             print(temperature)
 
