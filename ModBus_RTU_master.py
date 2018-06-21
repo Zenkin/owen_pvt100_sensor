@@ -27,6 +27,7 @@ class HTT100:
         self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
         HTT100.sensors_count += 1
+        self.index = sensors_count
         print("    ---------------------------")
         print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
         print("    ---------------------------")
@@ -39,6 +40,15 @@ class HTT100:
         print(("  "), ("Timeout: ").ljust(20), str(timeout).ljust(40))
         print("")
 
+    def __del__(self):
+        print('Сенсор {0} отключен'.format(self.index))
+        HTT100.sensors_count -= 1
+
+        if HTT100.sensors_count == 0:
+            print('Все датчики отключены')
+        else:
+            print('Осталось {0:d} работающих датчиков'.format(RHTT100.sensors_count))
+
     def get_temperature(self):
         self.temperature = self.instrument.read_register(temperature_register, numberOfDecimals=2, functioncode=3, signed=True)
         return self.temperature
@@ -47,3 +57,4 @@ sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, time
 for i in range(10):
     print("temperature = " + str(sensor_1.get_temperature()) +" C")
     time.sleep(1) 
+del sensor_1
