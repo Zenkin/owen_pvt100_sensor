@@ -10,7 +10,7 @@ hex_number = 102
 dec_number = 258
 dec_name_number = 1
 register_number = dec_name_number
-number_of_decimals = 1 # temperature value from -4000 to +12000 C
+number_of_decimals = 2 # temperature value from -4000 to +12000 C
 baudrate = 57600 # from datasheet
 bytesize = 8 # from datasheet
 stopbits = 1 # from datasheet
@@ -22,7 +22,7 @@ def main():
     minimalmodbus.BAUDRATE = baudrate
     minimalmodbus.TIMEOUT = timeout
     instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
-    print(instrument.read_register(register_number_test, numberOfDecimals=2, functioncode=3, signed=True)) # Registernumber, number of decimals
+    print(instrument.read_register(register_number, numberOfDecimals=2, functioncode=3, signed=True)) # Registernumber, number of decimals
     instrument.debug = True     
 
 main()
