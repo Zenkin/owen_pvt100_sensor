@@ -29,13 +29,13 @@ class HTT100:
         print("---------------------------")
         print("|          INFO           |")
         print("---------------------------")
-        print("Port: " +str(port))
-        print("Slave adress: " +str(slave_adress))
-        print("Boudrate" +str(baudrate))
-        print("Parity: " +str(parity))
-        print("Bytesize" +str(bytesize))
-        print("Stopbits: " +str(stopbits))
-        print("Timeout" +str(timeout))
+        print("|   Port: " +str(port)+ "         |")
+        print("|   Slave adress: " +str(slave_adress))
+        print("|   Boudrate" +str(baudrate))
+        print("|   Parity: " +str(parity))
+        print("|   Bytesize" +str(bytesize))
+        print("|   Stopbits: " +str(stopbits))
+        print("|   Timeout" +str(timeout))
 
 
     def get_temperature(self):
