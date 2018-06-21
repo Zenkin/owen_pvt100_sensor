@@ -17,7 +17,7 @@ class HTT100:
 
     sensors_count = 0
 
-    def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, baudrate, timeout):
+    def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
         minimalmodbus.BAUDRATE = baudrate
         minimalmodbus.PARITY = parity
         minimalmodbus.BYTESIZE  = bytesize
@@ -26,11 +26,21 @@ class HTT100:
         self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
         HTT100.sensors_count += 1
+        print("---------------------------")
+        print("|          INFO           |")
+        print("---------------------------")
+        print("Port: " +str(port))
+        print("Slave adress: " +str(slave_adress))
+        print("Boudrate" +str(baudrate))
+        print("Parity: " +str(parity))
+        print("Bytesize" +str(bytesize))
+        print("Stopbits: " +str(stopbits))
+        print("Timeout" +str(timeout))
 
 
     def get_temperature(self):
         self.temperature = self.instrument.read_register(temperature_register, numberOfDecimals=2, functioncode=3, signed=True)
         return self.temperature
 
-sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, baudrate, timeout)
+sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 print(sensor_1.get_temperature)
