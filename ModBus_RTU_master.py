@@ -18,13 +18,13 @@ class HTT100:
     sensors_count = 0
 
     def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
-        #minimalmodbus.BAUDRATE = baudrate
-        #minimalmodbus.PARITY = parity
-        #minimalmodbus.BYTESIZE  = bytesize
-        #minimalmodbus.STOPBITS  = stopbits
-        #minimalmodbus.TIMEOUT = timeout 
-        #self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
-        #self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
+        minimalmodbus.BAUDRATE = baudrate
+        minimalmodbus.PARITY = parity
+        minimalmodbus.BYTESIZE  = bytesize
+        minimalmodbus.STOPBITS  = stopbits
+        minimalmodbus.TIMEOUT = timeout 
+        self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
+        self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
         HTT100.sensors_count += 1
         print("    ---------------------------")
         print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
