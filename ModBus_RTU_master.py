@@ -4,11 +4,12 @@ import minimalmodbus
 import serial
 
 port = '/dev/ttyUSB0' # serial port
-slave_adress = 1 # 10cc
+slave_adress = 16 # 10cc
 ## Number of the first register 0x0102 16cc or 258 10cc ##
 hex_number = 102
 dec_number = 258
-register_number = dec_number
+dec_name_number = 1
+register_number = dec_name_number
 number_of_decimals = 1 # temperature value from -4000 to +12000 C
 baudrate = 57600 # from datasheet
 bytesize = 8 # from datasheet
@@ -20,18 +21,8 @@ def main():
 
     minimalmodbus.BAUDRATE = baudrate
     minimalmodbus.TIMEOUT = timeout
-
-    for baudrate_test in [57600, 38400, 19200, 9600, 4800, 2400, 1200]:
-        minimalmodbus.BAUDRATE = baudrate_test
-        print(baudrate_test)
-        for slave_adress_test in range(247):
-            instrument = minimalmodbus.Instrument(port, slave_adress_test+1)
-            for register_number_test in [1, 2, 3]:
-                try:
-                    print(instrument.read_register(register_number_test, 4, 3, True)) # Registernumber, number of decimals
-                    print("slave adress: " + str(slave_adress_test+1) + " adress: " + str(register_number_test) + " OK")
-                    instrument.debug = True
-                except:
-                    print(str(slave_adress_test+1) +" | " + str(register_number_test) + " FAIL")        
+    instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
+    print(instrument.read_register(register_number_test, numberOfDecimals=2, functioncode=3, signed=True)) # Registernumber, number of decimals
+    instrument.debug = True     
 
 main()
