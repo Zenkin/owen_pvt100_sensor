@@ -14,7 +14,7 @@ register_number = dec_name_number
 number_of_decimals = 2 # temperature value from -4000 to +12000 C
 baudrate = 9600 # from datasheet
 bytesize = 8 # from datasheet
-stopbits = 1 # from datasheet
+stopbits = 2 # from datasheet
 timeout = 0.1 # where to get it from?
 
 def main():
