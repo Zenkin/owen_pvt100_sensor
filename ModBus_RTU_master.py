@@ -27,7 +27,7 @@ class HTT100:
         self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
         HTT100.sensors_count += 1
-        self.index = sensors_count
+        self.index = HTT100.sensors_count
         print("    ---------------------------")
         print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
         print("    ---------------------------")
