@@ -97,7 +97,7 @@ def main():
         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,
         bytesize=serial.EIGHTBITS)
     for i in xrange(100):
-        y = UA_112(com, 16, 3, 259, 6)
+        y = UA_112(com, 16, 3, 481, 6)
         print y
         time.sleep(0.5)
    
