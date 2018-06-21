@@ -9,7 +9,7 @@ slave_adress = 16 # 10cc
 ## Number of the first register 0x0102 16cc or 258 10cc ##
 hex_number = 102
 dec_number = 258
-dec_name_number = 2
+dec_name_number = dec_number
 register_number = dec_name_number
 number_of_decimals = 2 # temperature value from -4000 to +12000 C
 baudrate = 9600 # from datasheet
