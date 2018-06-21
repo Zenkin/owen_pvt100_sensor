@@ -43,4 +43,4 @@ class HTT100:
         return self.temperature
 
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
-print(sensor_1.get_temperature)
+print(sensor_1.get_temperature())
