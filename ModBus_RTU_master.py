@@ -2,6 +2,7 @@
 
 import minimalmodbus
 import serial
+import time
 
 baudrate = 9600 # from datasheet
 parity = 'N'
@@ -45,4 +46,4 @@ class HTT100:
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 for i in range(10):
     print("temperature = " + str(sensor_1.get_temperature()) +" C")
-    delay(1)
+    time.sleep(1) 
