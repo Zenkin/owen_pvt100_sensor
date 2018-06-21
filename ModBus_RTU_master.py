@@ -4,7 +4,7 @@ import minimalmodbus
 import serial
 import serial.rs485
 
-port = '/dev/ttyUSB0' # serial port
+port = '/dev/ttyUSB1' # serial port
 slave_adress = 16 # 10cc
 ## Number of the first register 0x0102 16cc or 258 10cc ##
 hex_number = 102
