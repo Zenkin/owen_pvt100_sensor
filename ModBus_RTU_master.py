@@ -22,9 +22,9 @@ def main():
 
     minimalmodbus.BAUDRATE = baudrate
     minimalmodbus.TIMEOUT = timeout
+    instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
     instrument.mode = 'rtu' # rtu or ascii mode
     instrument.serial.rs485_mode = serial.rs485.RS485Settings()
-    instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
     print(instrument.read_register(register_number, numberOfDecimals=2, functioncode=3, signed=True)) # Registernumber, number of decimals
     instrument.debug = True     
 
