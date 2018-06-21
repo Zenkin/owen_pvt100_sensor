@@ -44,5 +44,5 @@ class HTT100:
 
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 for i in range(10):
-    print("temperature = "sensor_1.get_temperature() +" C")
+    print("temperature = " + str(sensor_1.get_temperature()) +" C")
     delay(1)
