@@ -60,6 +60,6 @@ timer = 0
 for i in range(600):
     #print("temperature = " + str(sensor_1.get_temperature()) +" C")
     print(str(timer) + " " + str(sensor_1.get_temperature()))
-    time.sleep(60)
+    time.sleep(1)
     timer += 1
 del sensor_1
