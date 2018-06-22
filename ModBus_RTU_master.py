@@ -59,7 +59,7 @@ sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, time
 timer = 0
 for i in range(10):
     #print("temperature = " + str(sensor_1.get_temperature()) +" C")
-    print(str(timer) + " " + temperature)
+    print(str(timer) + " " + str(sensor_1.get_temperature()))
     time.sleep(1)
     timer += 5
 del sensor_1
