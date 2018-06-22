@@ -54,7 +54,7 @@ class HTT100:
         self.temperature = self.instrument.read_register(temperature_register, numberOfDecimals=2, functioncode=3, signed=True)
         return self.temperature
 
-os.chmod(port, 0777)
+os.chmod(port, 0o777)
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 for i in range(10):
     print("temperature = " + str(sensor_1.get_temperature()) +" C")
