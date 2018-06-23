@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+''' File name: ModBus_RTU_master.py Author: Zenkin Artemii Date created: 6/20/2018 Date last modified: 6/23/2018 Python Version: 3
+'''
+
 import minimalmodbus
 import serial
 import time
@@ -68,10 +71,11 @@ class HTT100:
         if debug:
             print('Сенсор {0} отключен'.format(self.index))
         HTT100.sensors_count -= 1
-        if HTT100.sensors_count == 0 and debug:
-            print('Все датчики отключены')
-        else:
-            print('Осталось {0:d} работающих датчиков'.format(HTT100.sensors_count))
+        if debug:
+            if HTT100.sensors_count == 0:
+                print('Все датчики отключены')
+            else:
+                print('Осталось {0:d} работающих датчиков'.format(HTT100.sensors_count))
 
     def get_temperature(self):
         self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
