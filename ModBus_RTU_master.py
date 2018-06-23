@@ -101,7 +101,7 @@ class HTT100:
     def get_device_information(self):
     	print("network_address_of_the_device: " + str(self.get_network_address_of_the_device) + "\n" 
               + "exchange_rate: "               + str(self.get_exchange_rate)                 + "\n" 
-              + "device_response_delay: "       + str(self.get_response_delay)                + "\n"
+              + "device_response_delay: "       + str(self.get_device_response_delay)                + "\n"
               + "number_of_stopbits: "          + str(self.get_number_of_stopbits)            + "\n"
               + "software_version: "            + str(self.get_software_version)              + "\n")
 
