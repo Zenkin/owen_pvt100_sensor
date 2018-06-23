@@ -5,6 +5,8 @@ import serial
 import time
 import os
 
+debug = True
+
 baudrate = 9600 # from datasheet
 parity = 'N'
 bytesize = 8 # from datasheet
@@ -49,17 +51,18 @@ class HTT100:
         self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
         HTT100.sensors_count += 1
         self.index = HTT100.sensors_count
-        print("    ---------------------------")
-        print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
-        print("    ---------------------------")
-        print(("  "), ("Port: ").ljust(20), str(port).ljust(40))
-        print(("  "), ("Slave adress: ").ljust(20), str(slave_adress).ljust(40))
-        print(("  "), ("Boudrate: ").ljust(20), str(baudrate).ljust(40))
-        print(("  "), ("Parity: ").ljust(20), str(parity).ljust(40))
-        print(("  "), ("Bytesize: ").ljust(20), str(bytesize).ljust(40))
-        print(("  "), ("Stopbits: ").ljust(20), str(stopbits).ljust(40))
-        print(("  "), ("Timeout: ").ljust(20), str(timeout).ljust(40))
-        print("")
+        if debug:
+            print("    ---------------------------")
+            print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
+            print("    ---------------------------")
+            print(("  "), ("Port: ").ljust(20), str(port).ljust(40))
+            print(("  "), ("Slave adress: ").ljust(20), str(slave_adress).ljust(40))
+            print(("  "), ("Boudrate: ").ljust(20), str(baudrate).ljust(40))
+            print(("  "), ("Parity: ").ljust(20), str(parity).ljust(40))
+            print(("  "), ("Bytesize: ").ljust(20), str(bytesize).ljust(40))
+            print(("  "), ("Stopbits: ").ljust(20), str(stopbits).ljust(40))
+            print(("  "), ("Timeout: ").ljust(20), str(timeout).ljust(40))
+            print("")
 
     def __del__(self):
         print('Сенсор {0} отключен'.format(self.index))
@@ -99,11 +102,12 @@ class HTT100:
         return self.software_version
 
     def get_device_information(self):
-    	print("network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n" 
-              + "exchange_rate: "               + str(self.get_exchange_rate())                 + "\n" 
-              + "device_response_delay: "       + str(self.get_device_response_delay())         + "\n"
-              + "number_of_stopbits: "          + str(self.get_number_of_stopbits())            + "\n"
-              + "software_version: "            + str(self.get_software_version())              + "\n")
+    	devise_information = ("    network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n" 
+              + "    exchange_rate: "               + str(self.get_exchange_rate())                 + "\n" 
+              + "    device_response_delay: "       + str(self.get_device_response_delay())         + "\n"
+              + "    number_of_stopbits: "          + str(self.get_number_of_stopbits())            + "\n"
+              + "    software_version: "            + str(self.get_software_version())              + "\n")
+    	return devise_information
 
 
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
