@@ -5,7 +5,7 @@ import serial
 import time
 import os
 
-debug = True
+debug = False
 
 baudrate = 9600 # from datasheet
 parity = 'N'
@@ -65,10 +65,10 @@ class HTT100:
             print("")
 
     def __del__(self):
-        print('Сенсор {0} отключен'.format(self.index))
+    	if debug:
+            print('Сенсор {0} отключен'.format(self.index))
         HTT100.sensors_count -= 1
-
-        if HTT100.sensors_count == 0:
+        if HTT100.sensors_count == 0 and debug:
             print('Все датчики отключены')
         else:
             print('Осталось {0:d} работающих датчиков'.format(RHTT100.sensors_count))
