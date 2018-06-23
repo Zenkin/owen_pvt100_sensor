@@ -11,10 +11,18 @@ bytesize = 8 # from datasheet
 stopbits = 1 # from datasheet
 timeout = 0.05
 
+register = {
+	'temperature': 258
+	'humidity': 259
+	'network_address_of_the_device': 4
+	'exchange rate': 5
+	'device_response_delay': 6
+	'number_of_stopbits': 7
+	'software_version': 16
+}
+
 port = '/dev/ttyUSB1' # serial port
 slave_adress = 16 # 10cc
-temperature_register = 258
-humidity_register = 259
 
 class HTT100:
 
@@ -52,16 +60,17 @@ class HTT100:
             print('Осталось {0:d} работающих датчиков'.format(RHTT100.sensors_count))
 
     def get_temperature(self):
-        self.temperature = self.instrument.read_register(temperature_register, numberOfDecimals=2, functioncode=3, signed=True)
+        self.temperature = self.instrument.read_register(register['temperature'], numberOfDecimals=2, functioncode=3, signed=True)
         return self.temperature
 
     def get_humidity(self):
-        self.humidity = self.instrument.read_register(humidity_register, numberOfDecimals=2, functioncode=3, signed=True)
+        self.humidity = self.instrument.read_register(register['humidity'], numberOfDecimals=2, functioncode=3, signed=True)
         return self.humidity
 
 #os.chmod(port, 0o777)
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 for i in range(10):
-    print("temperature = " + str(sensor_1.get_temperature()) +" C" + "humidity = " + str(sensor_1.get_humidity()) + "%")
+    print()
+    print("temperature = " + str(sensor_1.get_temperature()) +" C" + " humidity = " + str(sensor_1.get_humidity()) + "%")
     time.sleep(1)
 del sensor_1
