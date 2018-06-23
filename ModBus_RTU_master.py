@@ -79,24 +79,24 @@ class HTT100:
         return self.humidity
 
     def get_network_address_of_the_device(self):
-        self.humidity = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
-        return self.humidity
+        self.network_address_of_the_device = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
+        return self.get_network_address_of_the_device
 
     def get_exchange_rate(self):
-        self.humidity = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
-        return self.humidity
+        self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
+        return self.exchange_rate
 
     def get_device_response_delay(self):
-        self.humidity = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
-        return self.humidity
+        self.device_response_delay = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
+        return self.device_response_delay
 
     def get_number_of_stopbits(self):
-        self.humidity = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
-        return self.humidity
+        self.number_of_stopbits = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
+        return self.number_of_stopbits
 
     def get_software_version(self):
-        self.humidity = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
-        return self.humidity
+        self.software_version = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
+        return self.software_version
 
     def get_device_information(self):
     	print("network_address_of_the_device: " + str(self.get_network_address_of_the_device) + "\n" 
