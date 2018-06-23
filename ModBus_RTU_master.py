@@ -65,7 +65,7 @@ class HTT100:
             print("")
 
     def __del__(self):
-    	if debug:
+        if debug:
             print('Сенсор {0} отключен'.format(self.index))
         HTT100.sensors_count -= 1
         if HTT100.sensors_count == 0 and debug:
