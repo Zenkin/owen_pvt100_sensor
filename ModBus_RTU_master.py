@@ -15,10 +15,21 @@ register = {
 	'temperature': 258
 	'humidity': 259
 	'network_address_of_the_device': 4
-	'exchange rate': 5
+	'exchange_rate': 5
 	'device_response_delay': 6
 	'number_of_stopbits': 7
 	'software_version': 16
+}
+
+function = {
+	'read': 3,
+	'write': 6
+}
+
+decimals_number = {
+	0: 0,
+	1: 1,
+	2: 2
 }
 
 port = '/dev/ttyUSB1' # serial port
@@ -60,14 +71,43 @@ class HTT100:
             print('Осталось {0:d} работающих датчиков'.format(RHTT100.sensors_count))
 
     def get_temperature(self):
-        self.temperature = self.instrument.read_register(register['temperature'], numberOfDecimals=2, functioncode=3, signed=True)
+        self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
         return self.temperature
 
     def get_humidity(self):
-        self.humidity = self.instrument.read_register(register['humidity'], numberOfDecimals=2, functioncode=3, signed=True)
+        self.humidity = self.instrument.read_register(register['humidity'], decimals_number[2], function['read'])
         return self.humidity
 
+    def get_network_address_of_the_device(self):
+        self.humidity = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
+        return self.humidity
+
+    def get_exchange_rate(self):
+        self.humidity = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
+        return self.humidity
+
+    def get_device_response_delay(self):
+        self.humidity = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
+        return self.humidity
+
+    def get_number_of_stopbits(self):
+        self.humidity = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
+        return self.humidity
+
+    def get_software_version(self):
+        self.humidity = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
+        return self.humidity
+
+    def get_device_information(self):
+    	print("network_address_of_the_device: " + str(get_network_address_of_the_device) + "\n" 
+              + "exchange_rate: "               + str(get_exchange_rate)                 + "\n" 
+              + "device_response_delay: "       + str(get_response_delay)                + "\n"
+              + "number_of_stopbits: "          + str(get_number_of_stopbits)            + "\n"
+              + "software_version: "            + str(get_software_version)              + "\n")
+
+
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
+HTT100.get_device_information()
 for i in range(10):
     print()
     print("temperature = " + str(sensor_1.get_temperature()) +" C" + " humidity = " + str(sensor_1.get_humidity()) + "%")
