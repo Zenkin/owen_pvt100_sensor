@@ -67,7 +67,6 @@ class HTT100:
         self.humidity = self.instrument.read_register(register['humidity'], numberOfDecimals=2, functioncode=3, signed=True)
         return self.humidity
 
-#os.chmod(port, 0o777)
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
 for i in range(10):
     print()
