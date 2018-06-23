@@ -71,7 +71,7 @@ class HTT100:
         if HTT100.sensors_count == 0 and debug:
             print('Все датчики отключены')
         else:
-            print('Осталось {0:d} работающих датчиков'.format(RHTT100.sensors_count))
+            print('Осталось {0:d} работающих датчиков'.format(HTT100.sensors_count))
 
     def get_temperature(self):
         self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
