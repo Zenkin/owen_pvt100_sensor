@@ -12,12 +12,12 @@ stopbits = 1 # from datasheet
 timeout = 0.05
 
 register = {
-	'temperature': 258
-	'humidity': 259
-	'network_address_of_the_device': 4
-	'exchange_rate': 5
-	'device_response_delay': 6
-	'number_of_stopbits': 7
+	'temperature': 258,
+	'humidity': 259,
+	'network_address_of_the_device': 4,
+	'exchange_rate': 5,
+	'device_response_delay': 6,
+	'number_of_stopbits': 7,
 	'software_version': 16
 }
 
