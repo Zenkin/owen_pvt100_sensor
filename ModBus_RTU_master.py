@@ -107,7 +107,7 @@ class HTT100:
 
 
 sensor_1 = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
-HTT100.get_device_information()
+sensor_1.get_device_information()
 for i in range(10):
     print()
     print("temperature = " + str(sensor_1.get_temperature()) +" C" + " humidity = " + str(sensor_1.get_humidity()) + "%")
