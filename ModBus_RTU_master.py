@@ -80,7 +80,7 @@ class HTT100:
 
     def get_network_address_of_the_device(self):
         self.network_address_of_the_device = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
-        return self.get_network_address_of_the_device
+        return self.network_address_of_the_device
 
     def get_exchange_rate(self):
         self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
