@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# coding=utf-8
 
-''' File name: ModBus_RTU_master.py Author: Zenkin Artemii Date created: 6/20/2018 Date last modified: 6/23/2018 Python Version: 3
-'''
+""" File name: ModBus_RTU_master.py Author: Zenkin Artemii Date created: 6/20/2018 Date last modified: 6/23/2018 Python Version: 3
+"""
 
 import minimalmodbus
 import serial
@@ -17,24 +18,24 @@ stopbits = 1 # from datasheet
 timeout = 0.05
 
 register = {
-	'temperature': 258,
-	'humidity': 259,
-	'network_address_of_the_device': 4,
-	'exchange_rate': 5,
-	'device_response_delay': 6,
-	'number_of_stopbits': 7,
-	'software_version': 16
+    'temperature': 258,
+    'humidity': 259,
+    'network_address_of_the_device': 4,
+    'exchange_rate': 5,
+    'device_response_delay': 6,
+    'number_of_stopbits': 7,
+    'software_version': 16
 }
 
 function = {
-	'read': 3,
-	'write': 6
+    'read': 3,
+    'write': 6
 }
 
 decimals_number = {
-	0: 0,
-	1: 1,
-	2: 2
+    0: 0,
+    1: 1,
+    2: 2
 }
 
 port = '/dev/ttyUSB1' # serial port
@@ -58,13 +59,13 @@ class HTT100:
             print("    ---------------------------")
             print("    |      SENSOR "+str(HTT100.sensors_count)+"   INFO    |")
             print("    ---------------------------")
-            print(("  "), ("Port: ").ljust(20), str(port).ljust(40))
-            print(("  "), ("Slave adress: ").ljust(20), str(slave_adress).ljust(40))
-            print(("  "), ("Boudrate: ").ljust(20), str(baudrate).ljust(40))
-            print(("  "), ("Parity: ").ljust(20), str(parity).ljust(40))
-            print(("  "), ("Bytesize: ").ljust(20), str(bytesize).ljust(40))
-            print(("  "), ("Stopbits: ").ljust(20), str(stopbits).ljust(40))
-            print(("  "), ("Timeout: ").ljust(20), str(timeout).ljust(40))
+            print("  ", "Port: ".ljust(20), str(port).ljust(40))
+            print("  ", "Slave adress: ".ljust(20), str(slave_adress).ljust(40))
+            print("  ", "Boudrate: ".ljust(20), str(baudrate).ljust(40))
+            print("  ", "Parity: ".ljust(20), str(parity).ljust(40))
+            print("  ", "Bytesize: ".ljust(20), str(bytesize).ljust(40))
+            print("  ", "Stopbits: ".ljust(20), str(stopbits).ljust(40))
+            print("  ", "Timeout: ".ljust(20), str(timeout).ljust(40))
             print("")
 
     def __del__(self):
@@ -106,7 +107,7 @@ class HTT100:
         return self.software_version
 
     def get_device_information(self):
-    	print("    network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n" 
+        print("    network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n"
               + "    exchange_rate: "               + str(self.get_exchange_rate())                 + "\n" 
               + "    device_response_delay: "       + str(self.get_device_response_delay())         + "\n"
               + "    number_of_stopbits: "          + str(self.get_number_of_stopbits())            + "\n"
