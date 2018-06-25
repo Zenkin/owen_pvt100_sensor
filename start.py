@@ -1,4 +1,4 @@
-#!/usr/bin/python2 
+#!/usr/bin/python2
 
 import rospy
 from std_msgs.msg import String
@@ -6,6 +6,15 @@ from HTT100 import *
 debug = True
 
 class Node:
+
+    repeat = False
+
+    def publication_period_controll(self):
+        if self.publication_period == 0:
+            Node.repeat = False
+        else:
+            Node.repeat = True
+
 
     def clear_parameters(self):
         try:
@@ -40,28 +49,38 @@ class Node:
             rospy.loginfo("capture time: " + str(self.capture_time))
             rospy.loginfo("publicationp period: " + str(self.publication_period))
 
-        #self.sensor = HTT100(port, slave_adress, baudrate, parity, bytesize, stopbits, timeout)
+        self.sensor = HTT100(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
 
-        self.sensor = '5'
+        #self.sensor = '5'
 
 
     def start_publication(self):
-        pub = rospy.Publisher('HTT100/temperature', String, queue_size=10)
-        rate = rospy.Rate(10) # 10hz
-        while not rospy.is_shutdown():
-            pub.publish(self.get_temperature())
-            rate.sleep()
+        self.publication_period_controll()
+        temperature_publication = rospy.Publisher('HTT100/temperature', String, queue_size=10)
+        humidity_publication = rospy.Publisher('HTT100/humidity', String, queue_size=10)
+        if Node.repeat:
+            while not rospy.is_shutdown():
+                temperature_publication.publish(str(self.get_temperature()))
+                humidity_publication.publish(str(self.get_humidity()))
+                time.sleep(self.publication_period)
+        else:
+            temperature = self.get_temperature()
+            temperature_publication.publish(temperature)
+            rospy.loginfo(str(temperature))
+            humidity = self.get_humidity()
+            humidity_publication.publish(humidity)
+            rospy.loginfo(str(humidity))
 
 
     def get_temperature(self):
-        #return self.sensor.get_temperature()
-        return self.sensor
+        return self.sensor.get_temperature()
+        #return self.sensor
 
 
     def get_humidity(self):
-        pass
-        #return self.sensor.get_humidity()
-        
+        #pass
+        return self.sensor.get_humidity()
+
 
 if __name__ == '__main__':
     node = Node()

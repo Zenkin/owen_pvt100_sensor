@@ -11,10 +11,9 @@ import os
 
 debug = False
 
-baudrate = 9600 # from datasheet
 parity = 'N'
-bytesize = 8 # from datasheet
-stopbits = 1 # from datasheet
+bytesize = 8
+stopbits = 1
 timeout = 0.05
 
 register = {
@@ -37,9 +36,6 @@ decimals_number = {
     1: 1,
     2: 2
 }
-
-port = '/dev/ttyUSB1' # serial port
-slave_adress = 16 # 10cc
 
 class HTT100:
 
@@ -72,6 +68,7 @@ class HTT100:
             print("  ", "Timeout: ".ljust(20), str(timeout).ljust(40))
             print("")
 
+
     def __del__(self):
         if debug:
             print('Сенсор {0} отключен'.format(self.index))
@@ -81,6 +78,7 @@ class HTT100:
                 print('Все датчики отключены')
             else:
                 print('Осталось {0:d} работающих датчиков'.format(HTT100.sensors_count))
+
 
     def get_temperature(self):
         try:
@@ -94,6 +92,45 @@ class HTT100:
         try:
             self.humidity = self.instrument.read_register(register['humidity'], decimals_number[2], function['read'])
             return self.humidity
+        except:
+            print("no connection")
+
+
+    def get_network_address_of_the_device(self):
+        try:
+            self.network_address_of_the_device = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
+            return self.network_address_of_the_device
+        except:
+            print("no connection")
+
+    def get_exchange_rate(self):
+        try:
+            self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
+            return self.exchange_rate
+        except:
+            print("no connection")
+
+
+    def get_device_response_delay(self):
+        try:
+            self.device_response_delay = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
+            return self.device_response_delay
+        except:
+            print("no connection")
+
+
+    def get_number_of_stopbits(self):
+        try:
+            self.number_of_stopbits = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
+            return self.number_of_stopbits
+        except:
+            print("no connection")
+
+
+    def get_software_version(self):
+        try:
+            self.software_version = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
+            return self.software_version
         except:
             print("no connection")
 
