@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>temperature_sensor</name>
+  <version>0.0.0</version>
+  <description>The temperature_sensor package</description>
+
+  <maintainer email="robair@todo.todo">robair</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <exec_depend>rospy</exec_depend>
+
+  <export>
+  </export>
+
+</package>
