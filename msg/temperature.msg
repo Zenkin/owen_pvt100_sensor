@@ -1,3 +1,3 @@
 Header header  
   string port
-  float32 temperature
+  float64 temperature

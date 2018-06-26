@@ -1,3 +1,3 @@
 Header header  
   string port
-  float32 humidity
+  float64 humidity
