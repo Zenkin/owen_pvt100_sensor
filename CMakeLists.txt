@@ -16,6 +16,12 @@ add_message_files(
   humidity.msg
 )
 
+add_service_files(
+  FILES
+  temperature_service.srv
+  humidity_service.srv
+)
+
 generate_messages(
   DEPENDENCIES
   std_msgs

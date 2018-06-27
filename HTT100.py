@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-""" File name: ModBus_RTU_master.py Author: Zenkin Artemii Date created: 6/20/2018 Date last modified: 6/23/2018 Python Version: 3
+""" 
+File name: HTT100_driver.py Author: Zenkin Artemii
+A Python driver for the Modbus RTU protocols via serial port (via RS485).
 """
 
 import minimalmodbus
@@ -138,9 +140,9 @@ class HTT100:
     def get_device_information(self):
         try:
             print("    network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n"
-              + "    exchange_rate: "               + str(self.get_exchange_rate())                 + "\n" 
-              + "    device_response_delay: "       + str(self.get_device_response_delay())         + "\n"
-              + "    number_of_stopbits: "          + str(self.get_number_of_stopbits())            + "\n"
-              + "    software_version: "            + str(self.get_software_version())              + "\n")
+              + "    exchange_rate: "                   + str(self.get_exchange_rate())                 + "\n" 
+              + "    device_response_delay: "           + str(self.get_device_response_delay())         + "\n"
+              + "    number_of_stopbits: "              + str(self.get_number_of_stopbits())            + "\n"
+              + "    software_version: "                + str(self.get_software_version())              + "\n")
         except:
             print("no connection to " + str(port))

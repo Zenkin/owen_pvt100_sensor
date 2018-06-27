@@ -9,6 +9,6 @@
 		<param name="slave_adress" value="16" />
 		<param name="baudrate" value="9600" />
 		<param name="capture_time" value="10" />
-		<param name="publication_period" value="0" />
+		<param name="publication_period" value="1" />
 	</node>
 </launch>
