@@ -87,7 +87,7 @@ class HTT100:
             self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
             return self.temperature
         except:
-            print("no connection")
+            return "error_get_temperature"
 
 
     def get_humidity(self):
@@ -95,7 +95,7 @@ class HTT100:
             self.humidity = self.instrument.read_register(register['humidity'], decimals_number[2], function['read'])
             return self.humidity
         except:
-            print("no connection")
+            return "error_get_humidity"
 
 
     def get_network_address_of_the_device(self):

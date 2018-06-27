@@ -20,6 +20,7 @@ add_service_files(
   FILES
   temperature_service.srv
   humidity_service.srv
+  update_service.srv
 )
 
 generate_messages(

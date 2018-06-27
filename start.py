@@ -6,6 +6,7 @@ from temperature_sensor.msg import temperature as temperature_msg
 from temperature_sensor.msg import humidity as humidity_msg
 from temperature_sensor.srv import temperature_service, temperature_serviceResponse
 from temperature_sensor.srv import humidity_service, humidity_serviceResponse
+from temperature_sensor.srv import update_service, update_serviceResponse
 import threading
 from HTT100 import *
 
@@ -67,12 +68,12 @@ class Node:
             self.clear_parameters()
             if debug:
                 rospy.loginfo("Can't find parameters. Set default values ...")
-            self.set_parameters()
+            self.set_default_parameters()
             self.get_parameters()
         if debug:
             self.print_loginfo()
 
-        #self.sensor = HTT100(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
+        self.sensor = HTT100(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
 
 
     def print_loginfo(self):
@@ -83,7 +84,7 @@ class Node:
         rospy.loginfo("publicationp period: " + str(self.publication_period))        
 
 
-    def set_parameters(self):
+    def set_default_parameters(self):
         rospy.set_param("/temperature_sensor/port", "/dev/ttyUSB1")
         rospy.set_param("/temperature_sensor/slave_adress", 16)
         rospy.set_param("/temperature_sensor/baudrate", 9600)
@@ -111,36 +112,66 @@ class Node:
                 temperature_message.port = self.port
                 temperature_message.header.stamp = rospy.Time.now()
                 temperature_message.header.frame_id = "temperure_sensor"
-                # temperature_message.temperature = self.get_temperature()
-                temperature_message.temperature = 23.5
+                lock.acquire()
+                temperature_value = self.get_temperature()
+                lock.release()
+                if temperature_value == "error_get_temperature":
+                    temperature_message.success = False
+                    temperature_message.temperature = 0
+                else:
+                    temperature_message.success = True
+                    temperature_message.temperature = temperature_value
                 # form a message with humidity
                 humidity_message.port = self.port
                 humidity_message.header.stamp = rospy.Time.now()
                 humidity_message.header.frame_id = "humidity_sensor"
-                # humidity_message.humidity = self.get_humidity()
-                humidity_message.humidity = 51.8
+                lock.acquire()
+                humidity_value = self.get_humidity()
+                lock.release()
+                if humidity_value == "error_get_humidity":
+                    humidity_message.success = False
+                    humidity_message.humidity = 0
+                else:
+                    humidity_message.success = True
+                    humidity_message.humidity = humidity_value
                 # publish messages with temperature and humidity
                 temperature_publication.publish(temperature_message)
                 humidity_publication.publish(humidity_message)
                 time.sleep(self.publication_period)
         else:
             rospy.loginfo("Repear = False")
+            lock.acquire()
             temperature_message.port = self.port
+            lock.release()
             temperature_message.header.stamp = rospy.Time.now()
             temperature_message.header.frame_id = "temperure_sensor"
-            #temperature_message.temperature = self.get_temperature()
-            temperature_message.temperature = 23.5
+            lock.acquire()
+            temperature_value = self.get_temperature()
+            lock.release()
+            if temperature_value == "error_get_temperature":
+                temperature_message.success = False
+                temperature_message.temperature = 0
+            else:
+                temperature_message.success = True
+                temperature_message.temperature = temperature_value
+            lock.acquire()
             humidity_message.port = self.port
+            lock.release()
             humidity_message.header.stamp = rospy.Time.now()
             humidity_message.header.frame_id = "humidity_sensor"
-            #humidity_message.humidity = self.get_humidity()
-            humidity_message.humidity = 51.8
+            lock.acquire()
+            humidity_value = self.get_humidity()
+            lock.release()
+            if humidity_value == "error_get_humidity":
+                humidity_message.success = False
+                humidity_message.humidity = 0
+            else:
+                humidity_message.success = True
+                humidity_message.humidity = humidity_value
             time.sleep(0.1)
             
             temperature_publication.publish(temperature_message)
-            time.sleep(0.1)
             humidity_publication.publish(humidity_message)
-            time.sleep(0.1)
 
 
     def get_temperature(self):
@@ -149,10 +180,6 @@ class Node:
 
     def get_humidity(self):
         return self.sensor.get_humidity()
-
-
-    def get_port(self):
-        return self.port
 
 
     def temperature_service_callback(self, request):
@@ -181,6 +208,21 @@ class Node:
         return humidity_message_response
 
 
+    def update_service_callback(self, request):
+        update_message_response = update_serviceResponse()
+        lock.acquire()
+        self.get_parameters()
+        lock.release()
+        update_message_response.header.stamp = rospy.Time.now()
+        update_message_response.header.frame_id = "update_service"
+        lock.acquire()
+        self.sensor = HTT100(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
+        lock.release()
+        update_message_response.log = "Parameters have been changed successfully"
+
+        return update_message_response
+
+
 if __name__ == '__main__':
     try:
         node = Node()
@@ -193,8 +235,15 @@ if __name__ == '__main__':
     try:
         rospy.Service('get_temperature', temperature_service, node.temperature_service_callback)
     except:
-
-    rospy.Service('get_humidity', humidity_service, node.humidity_service_callback)
+        rospy.loginfo("Failed to start the temperature server")
+    try:
+        rospy.Service('get_humidity', humidity_service, node.humidity_service_callback)
+    except:
+        rospy.loginfo("Failed to start the humidity server")
+    try:
+        rospy.Service('update_parameters', update_service, node.update_service_callback)
+    except:
+        rospy.loginfo("Failed to start the humidity server")
     try:
         node.start_publication()
     except rospy.ROSInterruptException:
