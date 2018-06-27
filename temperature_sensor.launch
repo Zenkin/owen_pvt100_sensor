@@ -1,8 +1,8 @@
 <launch>
 	<node 
 		pkg = "temperature_sensor"
-		type = "start.py"
-		name = "temperature_sensor"
+		type = "start_node.py"
+		name = "thc_sensor"
 		output = "screen"
 	>
 		<param name="port" value="/dev/ttyUSB1" />
