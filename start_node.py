@@ -21,8 +21,6 @@ class Node:
     def publication_period_controll(self):
         if self.publication_period == 0:
             Node.repeat = False
-            if debug:
-                rospy.loginfo("publication_period_controll:repeat: False")
         else:
             Node.repeat = True
         
@@ -145,6 +143,8 @@ class Node:
                     temperature_publication.publish(temperature_message)
                     humidity_publication.publish(humidity_message)
                     Node.counter += 1
+                    if debug:
+                        rospy.loginfo("publication_period_controll:repeat: False")
 
 
     def get_temperature(self):
