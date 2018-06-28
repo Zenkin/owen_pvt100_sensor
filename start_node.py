@@ -2,11 +2,11 @@
 
 import rospy
 from std_msgs.msg import String
-from temperature_sensor.msg import temperature as temperature_msg
-from temperature_sensor.msg import humidity as humidity_msg
-from temperature_sensor.srv import temperature_service, temperature_serviceResponse
-from temperature_sensor.srv import humidity_service, humidity_serviceResponse
-from temperature_sensor.srv import update_service, update_serviceResponse
+from sensor.msg import temperature as temperature_msg
+from sensor.msg import humidity as humidity_msg
+from sensor.srv import temperature_service, temperature_serviceResponse
+from sensor.srv import humidity_service, humidity_serviceResponse
+from sensor.srv import update_service, update_serviceResponse
 import threading
 from thc_driver import *
 
