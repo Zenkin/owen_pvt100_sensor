@@ -13,6 +13,10 @@ import os
 
 debug = False
 
+parity = 'N'
+bytesize = 8
+stopbits = 1
+
 register = {
     'temperature': 258,
     'humidity': 259,
@@ -40,19 +44,20 @@ class thc_driver:
 
     sensors_count = 0
 
-    def __init__(self, port, slave_adress, baudrate, parity="N", bytesize=8, stopbits=1, timeout):
-        minimalmodbus.BAUDRATE = baudrate
+    def __init__(self, port, slave_adress, baudrate_value, parity, bytesize, stopbits, timeout_value):
+        minimalmodbus.BAUDRATE = baudrate_value
         minimalmodbus.PARITY = parity
         minimalmodbus.BYTESIZE  = bytesize
         minimalmodbus.STOPBITS  = stopbits
-        minimalmodbus.TIMEOUT = timeout
+        minimalmodbus.TIMEOUT = timeout_value
         try: 
             self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         except:
             print("No connection to " + str(port) + " or permission denied")
         else:
             self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
-            self.instrument.serial.TIMEOUT = timeout
+            self.instrument.serial.timeout = timeout_value
+            self.instrument.serial.baudrate = baudrate_value
         thc_driver.sensors_count += 1
         self.index = thc_driver.sensors_count
         if debug:
@@ -80,8 +85,9 @@ class thc_driver:
                 print('Осталось {0:d} работающих датчиков'.format(thc_driver.sensors_count))
 
 
-    def set_timeout(self, timeout_valuee):
-        self.instrument.serial.TIMEOUT = timeout_valuee
+    def set_timeout(self, timeout_value):
+        minimalmodbus.TIMEOUT = timeout_value
+        self.instrument.serial.timeout = timeout_value
 
 
     def get_temperature(self):
