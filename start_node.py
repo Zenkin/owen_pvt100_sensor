@@ -16,6 +16,7 @@ lock = threading.Lock()
 class Node:
 
     repeat = False
+    counter = 0
 
     def publication_period_controll(self):
         if self.publication_period == 0:
@@ -105,44 +106,10 @@ class Node:
         self.publication_period_controll()
         temperature_publication = rospy.Publisher('thc_driver/temperature', temperature_msg, queue_size=10)
         humidity_publication = rospy.Publisher('thc_driver/humidity', humidity_msg, queue_size=10)
-        if Node.repeat:
-            while not rospy.is_shutdown():
-                temperature_message = temperature_msg()
-                # form a message with temperature
-                temperature_message.port = self.port
-                temperature_message.header.stamp = rospy.Time.now()
-                temperature_message.header.frame_id = "temperure_sensor"
-                lock.acquire()
-                temperature_value = self.get_temperature()
-                lock.release()
-                if temperature_value == "error_get_temperature":
-                    temperature_message.success = False
-                    temperature_message.temperature = 0
-                else:
-                    temperature_message.success = True
-                    temperature_message.temperature = temperature_value
-                # form a message with humidity
-                humidity_message.port = self.port
-                humidity_message.header.stamp = rospy.Time.now()
-                humidity_message.header.frame_id = "humidity_sensor"
-                lock.acquire()
-                humidity_value = self.get_humidity()
-                lock.release()
-                if humidity_value == "error_get_humidity":
-                    humidity_message.success = False
-                    humidity_message.humidity = 0
-                else:
-                    humidity_message.success = True
-                    humidity_message.humidity = humidity_value
-                # publish messages with temperature and humidity
-                temperature_publication.publish(temperature_message)
-                humidity_publication.publish(humidity_message)
-                time.sleep(self.publication_period)
-        else:
-            rospy.loginfo("Repear = False")
-            lock.acquire()
+        while not rospy.is_shutdown():
+            self.publication_period_controll()
+            # form a message with temperature
             temperature_message.port = self.port
-            lock.release()
             temperature_message.header.stamp = rospy.Time.now()
             temperature_message.header.frame_id = "temperure_sensor"
             lock.acquire()
@@ -154,9 +121,8 @@ class Node:
             else:
                 temperature_message.success = True
                 temperature_message.temperature = temperature_value
-            lock.acquire()
+            # form a message with humidity
             humidity_message.port = self.port
-            lock.release()
             humidity_message.header.stamp = rospy.Time.now()
             humidity_message.header.frame_id = "humidity_sensor"
             lock.acquire()
@@ -168,10 +134,17 @@ class Node:
             else:
                 humidity_message.success = True
                 humidity_message.humidity = humidity_value
-            time.sleep(0.1)
-            
-            temperature_publication.publish(temperature_message)
-            humidity_publication.publish(humidity_message)
+            # publish messages with temperature and humidity
+            if Node.repeat:
+                temperature_publication.publish(temperature_message)
+                humidity_publication.publish(humidity_message)
+                Node.counter = 0
+                time.sleep(self.publication_period)
+            else:
+                if Node.counter == 0:
+                    temperature_publication.publish(temperature_message)
+                    humidity_publication.publish(humidity_message)
+                    Node.counter += 1
 
 
     def get_temperature(self):
