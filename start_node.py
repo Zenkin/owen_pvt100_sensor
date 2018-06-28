@@ -71,13 +71,13 @@ class Node:
         if debug:
             self.print_loginfo()
 
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.timeout)
 
     def print_loginfo(self):
         rospy.loginfo("port: " + self.port)
         rospy.loginfo("slave adress: " + str(self.slave_adress))
         rospy.loginfo("baudrate: " + str(self.baudrate))
-        rospy.loginfo("capture time: " + str(self.timeout))
+        rospy.loginfo("timeout: " + str(self.timeout))
         rospy.loginfo("publicationp period: " + str(self.publication_period))        
 
 
