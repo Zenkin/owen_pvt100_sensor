@@ -185,8 +185,8 @@ class Node:
     def temperature_service_callback(self, request):
         temperature_message_response = temperature_serviceResponse()
         lock.acquire()
-        temperature_message_response.temperature = 25
-        #temperature_message_response.temperature = self.get_temperature()
+        #temperature_message_response.temperature = 25
+        temperature_message_response.temperature = self.get_temperature()
         temperature_message_response.port = self.port
         temperature_message_response.header.stamp = rospy.Time.now()
         temperature_message_response.header.frame_id = "temperure_sensor"
@@ -198,8 +198,8 @@ class Node:
     def humidity_service_callback(self, request):
         humidity_message_response = humidity_serviceResponse()
         lock.acquire()
-        humidity_message_response.humidity = 25
-        #humidity_message_response.humidity = self.get_humidity()
+        #humidity_message_response.humidity = 25
+        humidity_message_response.humidity = self.get_humidity()
         humidity_message_response.port = self.port
         humidity_message_response.header.stamp = rospy.Time.now()
         humidity_message_response.header.frame_id = "temperure_sensor"
