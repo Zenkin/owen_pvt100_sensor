@@ -1,5 +1,7 @@
 # RS485_serial_communications
 
+For Airalab, https://aira.life 06-2018
+
 ## Установка
 
     cd /home/<catkin_workspace>/srs
