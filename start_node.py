@@ -17,7 +17,6 @@ class Node:
 
     repeat = False
     counter = 0
-    temperature_temp_value = 0
 
     def publication_period_controll(self):
         if self.publication_period == 0:
@@ -110,12 +109,9 @@ class Node:
             # form a message with temperature
             temperature_message.port = self.port
             temperature_message.header.stamp = rospy.Time.now()
-            temperature_message.header.frame_id = -200
+            temperature_message.header.frame_id = "temperure_sensor"
             lock.acquire()
-            portReadingThread = threading.Thread(target=self.get_temperature, name='threads.portReadingThread', daemon=True)
-            portReadingThread.start()
-            portReadingThread.join(1)
-            temperature_value = Node.temperature_temp_value
+            temperature_value = self.get_temperature()
             lock.release()
             if temperature_value == -200:
                 temperature_message.success = False
@@ -126,7 +122,7 @@ class Node:
             # form a message with humidity
             humidity_message.port = self.port
             humidity_message.header.stamp = rospy.Time.now()
-            humidity_message.header.frame_id = -200
+            humidity_message.header.frame_id = "humidity_sensor"
             lock.acquire()
             humidity_value = self.get_humidity()
             lock.release()
@@ -152,11 +148,7 @@ class Node:
 
 
     def get_temperature(self):
-        Node.temperature_temp_value = self.sensor.get_temperature()
-        if Node.temperature_temp_value == -200:
-            return -200
-        else:
-            return Node.temperature_temp_value
+        return self.sensor.get_temperature()
 
 
     def get_humidity(self):
