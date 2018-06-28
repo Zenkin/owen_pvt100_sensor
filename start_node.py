@@ -53,7 +53,7 @@ class Node:
         except:
             error_get_param = True
         try:
-            self.timeout = rospy.get_param("/thc_sensor/timeout")
+            self.capture_time = rospy.get_param("/thc_sensor/timeout")
             error_get_param = False
         except:
             error_get_param = True
@@ -70,14 +70,14 @@ class Node:
             self.get_parameters()
         if debug:
             self.print_loginfo()
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)
 
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.timeout)
 
     def print_loginfo(self):
         rospy.loginfo("port: " + self.port)
         rospy.loginfo("slave adress: " + str(self.slave_adress))
         rospy.loginfo("baudrate: " + str(self.baudrate))
-        rospy.loginfo("timeout: " + str(self.timeout))
+        rospy.loginfo("capture time: " + str(self.capture_time))
         rospy.loginfo("publicationp period: " + str(self.publication_period))        
 
 
@@ -93,9 +93,9 @@ class Node:
         self.port = rospy.get_param("/thc_sensor/port")
         self.slave_adress = rospy.get_param("/thc_sensor/slave_adress")
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
-        self.timeout = rospy.get_param("/thc_sensor/timeout")
+        self.capture_time = rospy.get_param("/thc_sensor/timeout")
         self.publication_period = rospy.get_param("/thc_sensor/publication_period")
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.timeout)          
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)          
 
 
     def start_publication(self):
@@ -200,6 +200,9 @@ class Node:
         lock.release()
         update_message_response.header.stamp = rospy.Time.now()
         update_message_response.header.frame_id = "update_service"
+        lock.acquire()
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
+        lock.release()
         update_message_response.log = "Parameters have been changed successfully"
 
         return update_message_response
