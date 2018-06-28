@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>temperature_sensor</name>
+  <name>sensor</name>
   <version>0.0.0</version>
-  <description>The temperature_sensor package</description>
+  <description>The sensor package</description>
 
   <maintainer email="robair@todo.todo">robair</maintainer>
 

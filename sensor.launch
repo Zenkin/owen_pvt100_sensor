@@ -1,6 +1,6 @@
 <launch>
 	<node 
-		pkg = "temperature_sensor"
+		pkg = "sensor"
 		type = "start_node.py"
 		name = "thc_sensor"
 		output = "screen"
