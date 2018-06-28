@@ -16,7 +16,6 @@ debug = False
 parity = 'N'
 bytesize = 8
 stopbits = 1
-timeout = 0.05
 
 register = {
     'temperature': 258,
@@ -46,11 +45,13 @@ class thc_driver:
     sensors_count = 0
 
     def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
-        minimalmodbus.BAUDRATE = baudrate
+        if baudrate != 9600:
+            minimalmodbus.BAUDRATE = baudrate
         minimalmodbus.PARITY = parity
         minimalmodbus.BYTESIZE  = bytesize
         minimalmodbus.STOPBITS  = stopbits
-        minimalmodbus.TIMEOUT = timeout
+        if timeout != 0.05:
+            minimalmodbus.TIMEOUT = timeout
         try: 
             self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         except:
@@ -83,8 +84,9 @@ class thc_driver:
             else:
                 print('Осталось {0:d} работающих датчиков'.format(thc_driver.sensors_count))
 
+
     def set_timeout(self, timeout_valuee):
-        minimalmodbus.TIMEOUT = timeout_valuee
+        instrument.serial.TIMEOUT = timeout_valuee
 
 
     def get_temperature(self):

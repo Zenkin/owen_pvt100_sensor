@@ -94,7 +94,7 @@ class Node:
         self.slave_adress = rospy.get_param("/thc_sensor/slave_adress")
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
         self.capture_time = rospy.get_param("/thc_sensor/timeout")
-        self.sensor.set_timeout(self.capture_time)
+        #self.sensor.set_timeout(self.capture_time)
         self.publication_period = rospy.get_param("/thc_sensor/publication_period")
 
 
