@@ -2,6 +2,11 @@
 
 For Airalab, https://aira.life 06-2018
 
+## Dependencies  
+It is the only dependency two dependencies:   
+* [MinimalModbus](http://minimalmodbus.readthedocs.io/en/master/installation.html)    
+* [PySerial](https://pypi.org/project/pyserial/)     
+
 ## Installation
 
     cd /home/<catkin_workspace>/srs
@@ -56,8 +61,4 @@ For Airalab, https://aira.life 06-2018
 
     /thc_driver/temperature   
 *Тип:* sensor/temperature    
-*Описание:* публикует данные о температуре (float64), а также Header    
-
-# Полезные ссылки
-[MinimalModBus](http://minimalmodbus.readthedocs.io/en/master/  "Ссылка")    
-[PySerial](https://pyserial.readthedocs.io/en/latest/shortintro.html "Ссылка")     
+*Описание:* публикует данные о температуре (float64), а также Header   
