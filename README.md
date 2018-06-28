@@ -12,8 +12,8 @@ It is the only dependency two dependencies:
     cd /home/<catkin_workspace>/srs
     catkin_create_pkg sensor
     git clone https://github.com/Zenkin/owen_pvt100_sensor.git   
-    cp -r https://github.com/Zenkin/owen_pvt100_sensor.git/* sensor/
-    rm -rf https://github.com/Zenkin/owen_pvt100_sensor.git/
+    cp -r owen_pvt100_sensor/* sensor/
+    rm -rf owen_pvt100_sensor/
     cd ..     
     catkin_make    
     catkin_make install
