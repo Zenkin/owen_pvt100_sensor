@@ -16,7 +16,7 @@ debug = False
 parity = 'N'
 bytesize = 8
 stopbits = 1
-timeout = 2000
+timeout = 0.00000001
 
 register = {
     'temperature': 258,
