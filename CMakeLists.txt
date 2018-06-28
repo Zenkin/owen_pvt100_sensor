@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-set(PROJECT temperature_sensor)
+set(PROJECT sensor)
 
 project(${PROJECT})
 
