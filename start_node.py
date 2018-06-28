@@ -155,7 +155,7 @@ class Node:
         Node.temperature_temp_value = self.sensor.get_temperature()
         if Node.temperature_temp_value == "error_get_temperature":
             return "error_get_temperature"
-        else
+        else:
             return Node.temperature_temp_value
 
 
