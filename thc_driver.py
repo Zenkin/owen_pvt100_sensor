@@ -16,7 +16,7 @@ debug = False
 parity = 'N'
 bytesize = 8
 stopbits = 1
-timeout = 0.05
+timeout = 20
 
 register = {
     'temperature': 258,
@@ -42,6 +42,8 @@ decimals_number = {
 class thc_driver:
 
     sensors_count = 0
+
+    read_port_result = -1
 
     def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
         minimalmodbus.BAUDRATE = baudrate
