@@ -1,14 +1,14 @@
-# RS485_serial_communications
+# owen_pvt100_sensor
 
 For Airalab, https://aira.life 06-2018
 
-## Установка
+## Installation
 
     cd /home/<catkin_workspace>/srs
     catkin_create_pkg sensor
-    git clone https://github.com/Zenkin/RS485_serial_communications.git   
-    cp -r RS485_serial_communications/* sensor/
-    rm -rf RS485_serial_communications/
+    git clone https://github.com/Zenkin/owen_pvt100_sensor.git   
+    cp -r https://github.com/Zenkin/owen_pvt100_sensor.git/* sensor/
+    rm -rf https://github.com/Zenkin/owen_pvt100_sensor.git/
     cd ..     
     catkin_make    
     catkin_make install
