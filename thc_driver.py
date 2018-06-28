@@ -40,7 +40,7 @@ class thc_driver:
 
     sensors_count = 0
 
-    def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
+    def __init__(self, port, slave_adress, baudrate, parity="N", bytesize=8, stopbits=1, timeout):
         minimalmodbus.BAUDRATE = baudrate
         minimalmodbus.PARITY = parity
         minimalmodbus.BYTESIZE  = bytesize
