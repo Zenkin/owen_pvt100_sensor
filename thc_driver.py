@@ -16,7 +16,7 @@ debug = False
 parity = 'N'
 bytesize = 8
 stopbits = 1
-timeout = 20
+timeout = 2000
 
 register = {
     'temperature': 258,
@@ -39,11 +39,11 @@ decimals_number = {
     2: 2
 }
 
+read_temperature_result = 0
+
 class thc_driver:
 
     sensors_count = 0
-
-    read_port_result = -1
 
     def __init__(self, port, slave_adress, baudrate, parity, bytesize, stopbits, timeout):
         minimalmodbus.BAUDRATE = baudrate
@@ -85,8 +85,10 @@ class thc_driver:
 
 
     def get_temperature(self):
+        global read_temperature_result
         try:
             self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
+            read_temperature_result = self.temperature
             return self.temperature
         except:
             return "error_get_temperature"
