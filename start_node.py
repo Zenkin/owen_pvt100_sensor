@@ -186,6 +186,7 @@ class Node:
         temperature_message_response = temperature_serviceResponse()
         lock.acquire()
         #temperature_message_response.temperature = 25
+        temperature_value = self.get_temperature()
         if temperature_value == "error_get_temperature":
             temperature_message.success = False
             temperature_message.temperature = 0
@@ -205,6 +206,7 @@ class Node:
         humidity_message_response = humidity_serviceResponse()
         lock.acquire()
         #humidity_message_response.humidity = 25
+        humidity_value = self.get_humidity()
         if humidity_value == "error_get_humidity":
             humidity_message.success = False
             humidity_message.humidity = 0
