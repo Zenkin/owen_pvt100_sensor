@@ -38,8 +38,6 @@ decimals_number = {
     2: 2
 }
 
-read_temperature_result = 0
-
 class thc_driver:
 
     sensors_count = 0
@@ -85,16 +83,9 @@ class thc_driver:
                 print('Осталось {0:d} работающих датчиков'.format(thc_driver.sensors_count))
 
 
-    def set_timeout(self, timeout_value):
-        minimalmodbus.TIMEOUT = timeout_value
-        self.instrument.serial.timeout = timeout_value
-
-
     def get_temperature(self):
-        global read_temperature_result
         try:
             self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
-            read_temperature_result = self.temperature
             return self.temperature
         except:
             return -200
@@ -113,14 +104,14 @@ class thc_driver:
             self.network_address_of_the_device = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
             return self.network_address_of_the_device
         except:
-            print("no connection")
+            return -200
 
     def get_exchange_rate(self):
         try:
             self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
             return self.exchange_rate
         except:
-            print("no connection")
+            return -200
 
 
     def get_device_response_delay(self):
@@ -128,7 +119,7 @@ class thc_driver:
             self.device_response_delay = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
             return self.device_response_delay
         except:
-            print("no connection")
+            return -200
 
 
     def get_number_of_stopbits(self):
@@ -136,7 +127,7 @@ class thc_driver:
             self.number_of_stopbits = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
             return self.number_of_stopbits
         except:
-            print("no connection")
+            return -200
 
 
     def get_software_version(self):
@@ -144,7 +135,7 @@ class thc_driver:
             self.software_version = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
             return self.software_version
         except:
-            print("no connection")
+            return -200
 
 
     def get_device_information(self):

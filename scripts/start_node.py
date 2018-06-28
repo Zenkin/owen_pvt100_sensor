@@ -7,8 +7,8 @@ from sensor.msg import humidity as humidity_msg
 from sensor.srv import temperature_service, temperature_serviceResponse
 from sensor.srv import humidity_service, humidity_serviceResponse
 from sensor.srv import update_service, update_serviceResponse
+from sensor.modbus_driver import *
 import threading
-from thc_driver import *
 
 debug = True
 lock = threading.Lock()
@@ -94,14 +94,12 @@ class Node:
         self.slave_adress = rospy.get_param("/thc_sensor/slave_adress")
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
         self.capture_time = rospy.get_param("/thc_sensor/timeout")
-        #self.sensor.set_timeout(self.capture_time)
         self.publication_period = rospy.get_param("/thc_sensor/publication_period")
 
 
     def start_publication(self):
         temperature_message = temperature_msg()
         humidity_message = humidity_msg()
-        self.publication_period_controll()
         temperature_publication = rospy.Publisher('thc_driver/temperature', temperature_msg, queue_size=10)
         humidity_publication = rospy.Publisher('thc_driver/humidity', humidity_msg, queue_size=10)
         while not rospy.is_shutdown():
@@ -158,7 +156,6 @@ class Node:
     def temperature_service_callback(self, request):
         temperature_message_response = temperature_serviceResponse()
         lock.acquire()
-        #temperature_message_response.temperature = 25
         temperature_value = self.get_temperature()
         if temperature_value == -200:
             temperature_message_response.success = False
@@ -177,7 +174,6 @@ class Node:
     def humidity_service_callback(self, request):
         humidity_message_response = humidity_serviceResponse()
         lock.acquire()
-        #humidity_message_response.humidity = 25
         humidity_value = self.get_humidity()
         if humidity_value == -200:
             humidity_message_response.success = False

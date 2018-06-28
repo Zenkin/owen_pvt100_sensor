@@ -10,10 +10,13 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-add_message_files(
+catkin_python_setup()
+
+add_service_files(
   FILES
-  temperature.msg
-  humidity.msg
+  temperature_service.srv
+  humidity_service.srv
+  update_service.srv
 )
 
 add_service_files(
@@ -21,6 +24,12 @@ add_service_files(
   temperature_service.srv
   humidity_service.srv
   update_service.srv
+)
+
+add_message_files(
+  FILES
+  temperature.msg
+  humidity.msg
 )
 
 generate_messages(
@@ -36,3 +45,6 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+
+catkin_install_python(PROGRAMS scripts/start_node.py
+                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
