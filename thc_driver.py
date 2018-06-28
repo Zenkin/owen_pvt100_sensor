@@ -16,7 +16,7 @@ debug = False
 parity = 'N'
 bytesize = 8
 stopbits = 1
-timeout = 0.00000001
+timeout = 0.05
 
 register = {
     'temperature': 258,
@@ -82,6 +82,22 @@ class thc_driver:
                 print('Все датчики отключены')
             else:
                 print('Осталось {0:d} работающих датчиков'.format(thc_driver.sensors_count))
+
+ 
+    def set_timeout(self, timeout_value):
+        minimalmodbus.TIMEOUT = timeout_value
+
+
+    def set_port(self, port_value):
+        minimalmodbus.TIMEOUT = port_value
+
+
+    def set_slave_adress(self, slave_adress_value):
+        minimalmodbus.TIMEOUT = slave_adress_value
+
+
+    def sensor.set_baudrate(self, baudrate_value):
+        minimalmodbus.BAUDRATE = baudrate_value
 
 
     def get_temperature(self):

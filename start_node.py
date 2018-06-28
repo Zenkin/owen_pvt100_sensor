@@ -53,7 +53,7 @@ class Node:
         except:
             error_get_param = True
         try:
-            self.capture_time = rospy.get_param("/thc_sensor/capture_time")
+            self.timeout = rospy.get_param("/thc_sensor/timeout")
             error_get_param = False
         except:
             error_get_param = True
@@ -73,12 +73,11 @@ class Node:
 
         self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
 
-
     def print_loginfo(self):
         rospy.loginfo("port: " + self.port)
         rospy.loginfo("slave adress: " + str(self.slave_adress))
         rospy.loginfo("baudrate: " + str(self.baudrate))
-        rospy.loginfo("capture time: " + str(self.capture_time))
+        rospy.loginfo("capture time: " + str(self.timeout))
         rospy.loginfo("publicationp period: " + str(self.publication_period))        
 
 
@@ -86,7 +85,7 @@ class Node:
         rospy.set_param("/thc_sensor/port", "/dev/ttyUSB1")
         rospy.set_param("/thc_sensor/slave_adress", 16)
         rospy.set_param("/thc_sensor/baudrate", 9600)
-        rospy.set_param("/thc_sensor/capture_time", 10)
+        rospy.set_param("/thc_sensor/timeout", 10)
         rospy.set_param("/thc_sensor/publication_period", 30)
 
 
@@ -94,8 +93,9 @@ class Node:
         self.port = rospy.get_param("/thc_sensor/port")
         self.slave_adress = rospy.get_param("/thc_sensor/slave_adress")
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
-        self.capture_time = rospy.get_param("/thc_sensor/capture_time")
-        self.publication_period = rospy.get_param("/thc_sensor/publication_period")          
+        self.timeout = rospy.get_param("/thc_sensor/timeout")
+        self.publication_period = rospy.get_param("/thc_sensor/publication_period")
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.timeout)          
 
 
     def start_publication(self):
@@ -200,9 +200,6 @@ class Node:
         lock.release()
         update_message_response.header.stamp = rospy.Time.now()
         update_message_response.header.frame_id = "update_service"
-        lock.acquire()
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
-        lock.release()
         update_message_response.log = "Parameters have been changed successfully"
 
         return update_message_response
