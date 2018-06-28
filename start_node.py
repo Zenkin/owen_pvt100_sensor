@@ -95,7 +95,6 @@ class Node:
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
         self.capture_time = rospy.get_param("/thc_sensor/timeout")
         self.publication_period = rospy.get_param("/thc_sensor/publication_period")
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)          
 
 
     def start_publication(self):
