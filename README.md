@@ -46,7 +46,7 @@
 *Принимаемые аргументы:* нет  
 *Описание:* обновляет и применяет параметры, которые были записаны через rosparam set    
 
-### Topic 
+### Topics 
 
     /thc_driver/humidity  
 *Тип:* sensor/humidity   
