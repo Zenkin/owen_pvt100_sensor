@@ -17,7 +17,7 @@ class Node:
 
     repeat = False
     counter = 0
-    temperature_temp_value
+    temperature_temp_value = 0
 
     def publication_period_controll(self):
         if self.publication_period == 0:
@@ -110,14 +110,14 @@ class Node:
             # form a message with temperature
             temperature_message.port = self.port
             temperature_message.header.stamp = rospy.Time.now()
-            temperature_message.header.frame_id = "temperure_sensor"
+            temperature_message.header.frame_id = -200
             lock.acquire()
             portReadingThread = threading.Thread(target=self.get_temperature, name='threads.portReadingThread', daemon=True)
             portReadingThread.start()
             portReadingThread.join(1)
             temperature_value = Node.temperature_temp_value
             lock.release()
-            if temperature_value == "error_get_temperature":
+            if temperature_value == -200:
                 temperature_message.success = False
                 temperature_message.temperature = 0
             else:
@@ -126,11 +126,11 @@ class Node:
             # form a message with humidity
             humidity_message.port = self.port
             humidity_message.header.stamp = rospy.Time.now()
-            humidity_message.header.frame_id = "humidity_sensor"
+            humidity_message.header.frame_id = -200
             lock.acquire()
             humidity_value = self.get_humidity()
             lock.release()
-            if humidity_value == "error_get_humidity":
+            if humidity_value == -200:
                 humidity_message.success = False
                 humidity_message.humidity = 0
             else:
@@ -153,8 +153,8 @@ class Node:
 
     def get_temperature(self):
         Node.temperature_temp_value = self.sensor.get_temperature()
-        if Node.temperature_temp_value == "error_get_temperature":
-            return "error_get_temperature"
+        if Node.temperature_temp_value == -200:
+            return -200
         else:
             return Node.temperature_temp_value
 
@@ -168,7 +168,7 @@ class Node:
         lock.acquire()
         #temperature_message_response.temperature = 25
         temperature_value = self.get_temperature()
-        if temperature_value == "error_get_temperature":
+        if temperature_value == -200:
             temperature_message_response.success = False
             temperature_message_response.temperature = 0
         else:
@@ -187,7 +187,7 @@ class Node:
         lock.acquire()
         #humidity_message_response.humidity = 25
         humidity_value = self.get_humidity()
-        if humidity_value == "error_get_humidity":
+        if humidity_value == -200:
             humidity_message_response.success = False
             humidity_message_response.humidity = 0
         else:

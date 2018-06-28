@@ -91,7 +91,7 @@ class thc_driver:
             read_temperature_result = self.temperature
             return self.temperature
         except:
-            return "error_get_temperature"
+            return -200
 
 
     def get_humidity(self):
@@ -99,7 +99,7 @@ class thc_driver:
             self.humidity = self.instrument.read_register(register['humidity'], decimals_number[2], function['read'])
             return self.humidity
         except:
-            return "error_get_humidity"
+            return -200
 
 
     def get_network_address_of_the_device(self):
