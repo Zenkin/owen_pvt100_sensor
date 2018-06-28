@@ -188,12 +188,11 @@ class Node:
         #temperature_message_response.temperature = 25
         temperature_value = self.get_temperature()
         if temperature_value == "error_get_temperature":
-            temperature_message.success = False
-            temperature_message.temperature = 0
+            temperature_message_response.success = False
+            temperature_message_response.temperature = 0
         else:
-            temperature_message.success = True
-            temperature_message.temperature = temperature_value
-        temperature_message_response.temperature = temperature_value
+            temperature_message_response.success = True
+            temperature_message_response.temperature = temperature_value
         temperature_message_response.port = self.port
         temperature_message_response.header.stamp = rospy.Time.now()
         temperature_message_response.header.frame_id = "temperure_sensor"
@@ -208,12 +207,11 @@ class Node:
         #humidity_message_response.humidity = 25
         humidity_value = self.get_humidity()
         if humidity_value == "error_get_humidity":
-            humidity_message.success = False
-            humidity_message.humidity = 0
+            humidity_message_response.success = False
+            humidity_message_response.humidity = 0
         else:
-            humidity_message.success = True
-            humidity_message.humidity = humidity_value
-        humidity_message_response.humidity = humidity_value
+            humidity_message_response.success = True
+            humidity_message_response.humidity = humidity_value
         humidity_message_response.port = self.port
         humidity_message_response.header.stamp = rospy.Time.now()
         humidity_message_response.header.frame_id = "temperure_sensor"
