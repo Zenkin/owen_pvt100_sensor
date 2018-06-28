@@ -200,7 +200,7 @@ class Node:
         update_message_response.header.stamp = rospy.Time.now()
         update_message_response.header.frame_id = "update_service"
         lock.acquire()
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, timeout)
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)
         lock.release()
         update_message_response.log = "Parameters have been changed successfully"
 
