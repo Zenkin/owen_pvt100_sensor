@@ -17,14 +17,13 @@ class Node:
 
     repeat = False
 
-
     def publication_period_controll(self):
         if self.publication_period == 0:
             Node.repeat = False
+            if debug:
+                rospy.loginfo("publication_period_controll:repeat: False")
         else:
             Node.repeat = True
-            if debug:
-                rospy.loginfo("publication_period_controll:repeat: True")
         
 
     def clear_parameters(self):
@@ -108,6 +107,7 @@ class Node:
         humidity_publication = rospy.Publisher('thc_driver/humidity', humidity_msg, queue_size=10)
         if Node.repeat:
             while not rospy.is_shutdown():
+                temperature_message = temperature_msg()
                 # form a message with temperature
                 temperature_message.port = self.port
                 temperature_message.header.stamp = rospy.Time.now()
