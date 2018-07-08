@@ -1,14 +1,19 @@
-# RS485_serial_communications
+# owen_pvt100_sensor
 
 For Airalab, https://aira.life 06-2018
 
-## Установка
+## Dependencies  
+It is the only dependency two dependencies:   
+* [MinimalModbus](http://minimalmodbus.readthedocs.io/en/master/installation.html)    
+* [PySerial](https://pypi.org/project/pyserial/)     
+
+## Installation
 
     cd /home/<catkin_workspace>/srs
     catkin_create_pkg sensor
-    git clone https://github.com/Zenkin/RS485_serial_communications.git   
-    cp -r RS485_serial_communications/* sensor/
-    rm -rf RS485_serial_communications/
+    git clone https://github.com/Zenkin/owen_pvt100_sensor.git   
+    cp -r owen_pvt100_sensor/* sensor/
+    rm -rf owen_pvt100_sensor/
     cd ..     
     catkin_make    
     catkin_make install
@@ -56,8 +61,4 @@ For Airalab, https://aira.life 06-2018
 
     /thc_driver/temperature   
 *Тип:* sensor/temperature    
-*Описание:* публикует данные о температуре (float64), а также Header    
-
-# Полезные ссылки
-[MinimalModBus](http://minimalmodbus.readthedocs.io/en/master/  "Ссылка")    
-[PySerial](https://pyserial.readthedocs.io/en/latest/shortintro.html "Ссылка")     
+*Описание:* публикует данные о температуре (float64), а также Header   
