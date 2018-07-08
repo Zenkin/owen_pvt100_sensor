@@ -3,7 +3,7 @@
 
 """ 
 File name: thc_driver.py Author: Zenkin Artemii
-A Python driver for the Modbus RTU protocols via serial port (via RS485).
+A Python driver for the ModBus RTU protocols via serial port (via RS485).
 """
 
 import minimalmodbus
@@ -38,39 +38,38 @@ decimals_number = {
     2: 2
 }
 
-class thc_driver:
 
+class thc_driver:
     sensors_count = 0
 
     def __init__(self, port, slave_adress, baudrate_value, parity, bytesize, stopbits, timeout_value):
         minimalmodbus.BAUDRATE = baudrate_value
         minimalmodbus.PARITY = parity
-        minimalmodbus.BYTESIZE  = bytesize
-        minimalmodbus.STOPBITS  = stopbits
+        minimalmodbus.BYTESIZE = bytesize
+        minimalmodbus.STOPBITS = stopbits
         minimalmodbus.TIMEOUT = timeout_value
-        try: 
+        try:
             self.instrument = minimalmodbus.Instrument(port, slave_adress, mode='rtu')
         except:
             print("No connection to " + str(port) + " or permission denied")
         else:
-            self.instrument.mode = minimalmodbus.MODE_RTU # set rtu mode
+            self.instrument.mode = minimalmodbus.MODE_RTU  # set rtu mode
             self.instrument.serial.timeout = timeout_value
             self.instrument.serial.baudrate = baudrate_value
         thc_driver.sensors_count += 1
         self.index = thc_driver.sensors_count
         if debug:
             print("    ---------------------------")
-            print("    |      SENSOR "+str(thc_driver.sensors_count)+"   INFO    |")
+            print("    |      SENSOR " + str(thc_driver.sensors_count) + "   INFO    |")
             print("    ---------------------------")
             print("  ", "Port: ".ljust(20), str(port).ljust(40))
             print("  ", "Slave adress: ".ljust(20), str(slave_adress).ljust(40))
-            print("  ", "Boudrate: ".ljust(20), str(baudrate).ljust(40))
+            print("  ", "Boudrate: ".ljust(20), str(baudrate_value).ljust(40))
             print("  ", "Parity: ".ljust(20), str(parity).ljust(40))
             print("  ", "Bytesize: ".ljust(20), str(bytesize).ljust(40))
             print("  ", "Stopbits: ".ljust(20), str(stopbits).ljust(40))
-            print("  ", "Timeout: ".ljust(20), str(timeout).ljust(40))
+            print("  ", "Timeout: ".ljust(20), str(timeout_value).ljust(40))
             print("")
-
 
     def __del__(self):
         if debug:
@@ -82,14 +81,13 @@ class thc_driver:
             else:
                 print('Осталось {0:d} работающих датчиков'.format(thc_driver.sensors_count))
 
-
     def get_temperature(self):
         try:
-            self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2], function['read'], signed=True)
+            self.temperature = self.instrument.read_register(register['temperature'], decimals_number[2],
+                                                             function['read'], signed=True)
             return self.temperature
         except:
             return -200
-
 
     def get_humidity(self):
         try:
@@ -98,52 +96,52 @@ class thc_driver:
         except:
             return -200
 
-
     def get_network_address_of_the_device(self):
         try:
-            self.network_address_of_the_device = self.instrument.read_register(register['network_address_of_the_device'], decimals_number[0], function['read'])
+            self.network_address_of_the_device = self.instrument.read_register(
+                register['network_address_of_the_device'], decimals_number[0], function['read'])
             return self.network_address_of_the_device
         except:
             return -200
 
     def get_exchange_rate(self):
         try:
-            self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0], function['read'])
+            self.exchange_rate = self.instrument.read_register(register['exchange_rate'], decimals_number[0],
+                                                               function['read'])
             return self.exchange_rate
         except:
             return -200
 
-
     def get_device_response_delay(self):
         try:
-            self.device_response_delay = self.instrument.read_register(register['device_response_delay'], decimals_number[0], function['read'])
+            self.device_response_delay = self.instrument.read_register(register['device_response_delay'],
+                                                                       decimals_number[0], function['read'])
             return self.device_response_delay
         except:
             return -200
 
-
     def get_number_of_stopbits(self):
         try:
-            self.number_of_stopbits = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0], function['read'])
+            self.number_of_stopbits = self.instrument.read_register(register['number_of_stopbits'], decimals_number[0],
+                                                                    function['read'])
             return self.number_of_stopbits
         except:
             return -200
 
-
     def get_software_version(self):
         try:
-            self.software_version = self.instrument.read_register(register['software_version'], decimals_number[0], function['read'])
+            self.software_version = self.instrument.read_register(register['software_version'], decimals_number[0],
+                                                                  function['read'])
             return self.software_version
         except:
             return -200
 
-
     def get_device_information(self):
         try:
             print("    network_address_of_the_device: " + str(self.get_network_address_of_the_device()) + "\n"
-              + "    exchange_rate: "                   + str(self.get_exchange_rate())                 + "\n" 
-              + "    device_response_delay: "           + str(self.get_device_response_delay())         + "\n"
-              + "    number_of_stopbits: "              + str(self.get_number_of_stopbits())            + "\n"
-              + "    software_version: "                + str(self.get_software_version())              + "\n")
+                  + "    exchange_rate: " + str(self.get_exchange_rate()) + "\n"
+                  + "    device_response_delay: " + str(self.get_device_response_delay()) + "\n"
+                  + "    number_of_stopbits: " + str(self.get_number_of_stopbits()) + "\n"
+                  + "    software_version: " + str(self.get_software_version()) + "\n")
         except:
             print("no connection to " + str(port))

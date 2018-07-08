@@ -13,8 +13,8 @@ import threading
 debug = True
 lock = threading.Lock()
 
-class Node:
 
+class Node:
     repeat = False
     counter = 0
 
@@ -23,7 +23,6 @@ class Node:
             Node.repeat = False
         else:
             Node.repeat = True
-        
 
     def clear_parameters(self):
         if debug:
@@ -33,7 +32,6 @@ class Node:
         except KeyError:
             if debug:
                 rospy.loginfo("Nothing to clean [parameters were not set]")
-
 
     def init(self):
         rospy.init_node('sensor', anonymous=True)
@@ -70,16 +68,15 @@ class Node:
             self.get_parameters()
         if debug:
             self.print_loginfo()
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)
-
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits,
+                                 self.capture_time)
 
     def print_loginfo(self):
         rospy.loginfo("port: " + self.port)
         rospy.loginfo("slave adress: " + str(self.slave_adress))
         rospy.loginfo("baudrate: " + str(self.baudrate))
         rospy.loginfo("capture time: " + str(self.capture_time))
-        rospy.loginfo("publicationp period: " + str(self.publication_period))        
-
+        rospy.loginfo("publicationp period: " + str(self.publication_period))
 
     def set_default_parameters(self):
         rospy.set_param("/thc_sensor/port", "/dev/ttyUSB1")
@@ -88,14 +85,12 @@ class Node:
         rospy.set_param("/thc_sensor/timeout", 10)
         rospy.set_param("/thc_sensor/publication_period", 30)
 
-
     def get_parameters(self):
         self.port = rospy.get_param("/thc_sensor/port")
         self.slave_adress = rospy.get_param("/thc_sensor/slave_adress")
         self.baudrate = rospy.get_param("/thc_sensor/baudrate")
         self.capture_time = rospy.get_param("/thc_sensor/timeout")
         self.publication_period = rospy.get_param("/thc_sensor/publication_period")
-
 
     def start_publication(self):
         temperature_message = temperature_msg()
@@ -122,7 +117,7 @@ class Node:
             humidity_message.header.stamp = rospy.Time.now()
             humidity_message.header.frame_id = "humidity_sensor"
             lock.acquire()
-            humidity_value = self.get_humidity()
+            humidity_value = self.get_humidity
             lock.release()
             if humidity_value == -200:
                 humidity_message.success = False
@@ -144,14 +139,11 @@ class Node:
                     if debug:
                         rospy.loginfo("publication_period_controll:repeat: False")
 
-
     def get_temperature(self):
         return self.sensor.get_temperature()
 
-
     def get_humidity(self):
-        return self.sensor.get_humidity()
-
+        return self.sensor.get_humidity
 
     def temperature_service_callback(self, request):
         temperature_message_response = temperature_serviceResponse()
@@ -170,11 +162,10 @@ class Node:
 
         return temperature_message_response
 
-
     def humidity_service_callback(self, request):
         humidity_message_response = humidity_serviceResponse()
         lock.acquire()
-        humidity_value = self.get_humidity()
+        humidity_value = self.get_humidity
         if humidity_value == -200:
             humidity_message_response.success = False
             humidity_message_response.humidity = 0
@@ -188,7 +179,6 @@ class Node:
 
         return humidity_message_response
 
-
     def update_service_callback(self, request):
         update_message_response = update_serviceResponse()
         lock.acquire()
@@ -197,7 +187,8 @@ class Node:
         update_message_response.header.stamp = rospy.Time.now()
         update_message_response.header.frame_id = "update_service"
         lock.acquire()
-        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits, self.capture_time)
+        self.sensor = thc_driver(self.port, self.slave_adress, self.baudrate, parity, bytesize, stopbits,
+                                 self.capture_time)
         lock.release()
         update_message_response.log = "Parameters have been changed successfully"
 
