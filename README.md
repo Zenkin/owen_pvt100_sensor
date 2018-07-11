@@ -66,8 +66,8 @@ Note:
 
 #### get_humidity     
 returns the humidity value (float64), and Header    
-**sensor/humidity_service**       
-
+*sensor/humidity_service*         
+ 
     ---    
     Header header    
       string port    
@@ -75,8 +75,8 @@ returns the humidity value (float64), and Header
       bool success    
 
 #### get_temperature  
-returns the temperature value (float64), and Header
-**sensor/temperature_service**
+returns the temperature value (float64), and Header   
+*sensor/temperature_service*
 
     ---    
     Header header   
@@ -86,7 +86,7 @@ returns the temperature value (float64), and Header
 
 #### update_parameters 
 updates and applies parameters that have been changed through the rosparam set   
-**sensor/update_service**   
+*sensor/update_service*       
 
     ---
     Header header
@@ -95,9 +95,9 @@ updates and applies parameters that have been changed through the rosparam set
 ### Topics 
 
     /thc_driver/humidity  
-*Тип:* sensor/humidity   
-*Описание:* публикует данные о влажности (float64), а также Header
+*Type:* sensor/humidity   
+*Description:* publishes humidity data (float64) and  Header
 
     /thc_driver/temperature   
-*Тип:* sensor/temperature    
-*Описание:* публикует данные о температуре (float64), а также Header   
+*Type:* sensor/temperature    
+*Description:* publishes temperature data (float64) and  Header
