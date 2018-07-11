@@ -33,8 +33,8 @@ Default parameters, which you can change at launch file:
     /thc_sensor/timeout: 0.05   
  
 Note:
-* timeout - maximum time to capture the bus interface. You can not set less than 0.05 seconds.
-* При установлении параметра publication_period равным 0, периодический опрос проводиться не будет
+* timeout - maximum time to capture the bus interface. You can not set less than 0.05 seconds   
+* If the publication_period parameter is set to 0, a periodic poll will not be conducted   
 
 ### Msg API 
 
