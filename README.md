@@ -3,7 +3,7 @@
 For Airalab, https://aira.life 06-2018
 
 ## Dependencies  
-It is the only dependency two dependencies:   
+It is the only two dependencies, you can download it from the links below:   
 * [MinimalModbus](http://minimalmodbus.readthedocs.io/en/master/installation.html)    
 * [PySerial](https://pypi.org/project/pyserial/)     
 
@@ -20,11 +20,11 @@ It is the only dependency two dependencies:
     source devel/setup.bash
     roslaunch sensor sensor.launch  
     
-## Описание 
+## Description 
 
-### Параметры
+### Parameters
 
-Дефолтные параметры, прописанные в launch файле:
+Default parameters, which you can change at launch file:
 
     /thc_sensor/baudrate: 9600   
     /thc_sensor/port: /dev/ttyUSB1   
@@ -32,26 +32,65 @@ It is the only dependency two dependencies:
     /thc_sensor/slave_adress: 16   
     /thc_sensor/timeout: 0.05   
  
-Замечания:
-* Парметр timeout (Максимальное время захвата интерфейса шины) нельзя ставить меньше 0.05 секунды
+Note:
+* timeout - maximum time to capture the bus interface. You can not set less than 0.05 seconds.
 * При установлении параметра publication_period равным 0, периодический опрос проводиться не будет
 
-### Сервисы
+### Msg API 
 
-    get_humidity       
-*Тип сообщения:* sensor/humidity_service     
-*Принимаемые аргументы:* нет   
-*Описание:* возвращает значение влажности (float64), а также Header   
+#### humidity
 
-    get_temperature       
-*Тип сообщения:* sensor/temperature_service    
-*Принимаемые аргументы:* нет   
-*Описание:* возвращает значение температуры (float64), а также Header   
+    Header header 
+      # port name
+      port string 
+      
+      # humidity sensor
+      float64 humidity
+      
+      # Data checking. If the data is not reached it returns False otherwise True
+      bool success
+      
+#### temperature  
 
-    update_parameters      
-*Тип сообщения:* sensor/update_service     
-*Принимаемые аргументы:* нет  
-*Описание:* обновляет и применяет параметры, которые были записаны через rosparam set    
+    Header header 
+      # port name
+      string 
+      
+      # temperature sensor
+      float64 temperature
+      
+      # Data checking. If the data is not reached it returns False otherwise True
+      bool success
+
+### Services API
+
+#### get_humidity     
+returns the humidity value (float64), and Header    
+**sensor/humidity_service**       
+
+    ---    
+    Header header    
+      string port    
+      float64 humidity    
+      bool success    
+
+#### get_temperature  
+returns the temperature value (float64), and Header
+**sensor/temperature_service**
+
+    ---    
+    Header header   
+      string port   
+      float64 temperature   
+      bool success  
+
+#### update_parameters 
+updates and applies parameters that have been changed through the rosparam set   
+**sensor/update_service**   
+
+    ---
+    Header header
+      string log
 
 ### Topics 
 
