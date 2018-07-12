@@ -24,7 +24,7 @@ It is the only two dependencies, you can download it from the links below:
 
 ### Parameters
 
-Default parameters, which you can change at launch file:
+Default parameters, which you can change in launch file:
 
     /thc_sensor/baudrate: 9600   
     /thc_sensor/port: /dev/ttyUSB1   
